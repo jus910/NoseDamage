@@ -1,7 +1,9 @@
 var c = document.getElementById("map");
 var ctx = c.getContext("2d");
+var prevY = 0;
+var pageY = 0;
 ctx.fillStyle = "#00FFFF";
-
+console.log("loaded map.js");
 
 mapButton = document.getElementById("mapit");
 mapButton.addEventListener("click", draw);
