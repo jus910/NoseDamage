@@ -1,0 +1,35 @@
+#container {
+    /* position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 7; */
+  }
+  
+  .square {
+    position: absolute;
+    background-color: white;
+    transition: transform 1s ease-in-out;
+    z-index: 7;
+  }
+  
+  #square1 {
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    right: 30%;
+  }
+  
+  #square2 {
+    width: 20px;
+    height: 20px;
+    top: 20%;
+    left: 70%;
+  }
+  
+  #square3 {
+    width: 30px;
+    height: 30px;
+    top: 80%;
+    left: 10%;
+  }
+  

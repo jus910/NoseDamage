@@ -5,11 +5,25 @@
     <meta charset="utf-8"/>
     <title>nose</title>
     <style>
+      /* #canvas {
+        position:absolute;
+        height:100%; width:100%;
+      } */
       #bg {
         background-image: url(../static/assets/taxi.jpg);
         background-size: cover;
         height: 100vh;
         background-attachment: fixed;
+      }
+      #bg1 {
+        margin-top: 0vh;
+        background-image: url(../static/assets/nycmap.jpeg);
+        /* background-size: 1540px 1080px; */
+        background-size: 80vw max(100vh, 600px);background-repeat: no-repeat;
+        background-position: right;
+        height: 100vh;
+        background-attachment: fixed;
+        position: relative;z-index: 1;
       }
       .img-overlay {
         height: 100vh;
@@ -18,37 +32,52 @@
       }
       body {
         overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      html {
+        width: 100%;
+        height: 100%;
       }
     </style>
+    <link rel="stylesheet" href="../static/css/home.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
+  <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 5000;">
+  </canvas>
 
   <div id= "bg" class="bg-image;">
     <h1 class="position-fixed text-white" style="z-index:2000;">TAXIST</h1>
   </div>
-  <div id = "bottom" class="" style="margin-top: 0vh; height:100vh; background-color: #343a40; position: relative; z-index: 5;">
-    <div id = "darkness" class="img-overlay">
-      <div class="container">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col" style="color: aliceblue;"> HOT</div>
+
+  <div id = "bottom" >
+    <div class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 50%, #0080FF00 60%); position: absolute; z-index: 5;">
+      <div id = "darkness" class="img-overlay">
+        <div class="container">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col" style="color: aliceblue;"> HOT</div>
+          </div>
         </div>
+        <button id="mapit">
+          update map
+        </button>
       </div>
-      <canvas width="500" height="500" id="map">
-      </canvas>
-      <button id="mapit">
-        update map
-      </button>
+    </div>
+    <div id="bg1">
+      <!-- <img src="../static/assets/nycmap.jpeg" style="margin-top: 0vh;height: 100vh; min-width: 960px; min-height:540px; position: absolute; right: -30vh; z-index: 1;"/> -->
     </div>
   </div>
-  <div>
-    <img src="../static/assets/nycmap.jpeg" style="height: 100vh; margin-top: -100vh; position: absolute; z-index: 1; "/>
-  </div>
-
+  <!-- <div id="container">
+    <div id="square1" class="square"></div>
+    <div id="square2" class="square"></div>
+    <div id="square3" class="square"></div>
+  </div> -->
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="../static/js/map.js"></script>
+  <!-- <script src="../static/js/map.js"></script> -->
   <script src="../static/js/home.js"></script>
 
 </html>

@@ -1,13 +1,29 @@
 var bottomPage = document.getElementById("bottom");
 var darkness = document.getElementById("darkness");
+
+var c = document.getElementById("canvas");
+c.width = window.innerWidth;
+c.height = window.innerHeight * 2;
+var ctx = c.getContext("2d");
+ctx.fillStyle="red";
+
+
 var scrollStateUp = false;
 var scrollStateDown = false;
 var darkenState = false;
 var mapState = false;
+
 var requestID;
 var position = "down";
 var currentY = 0;
 var accumulateY = 0; // 
+
+var squares = {
+    square : {
+        positionX : -100,
+        positionY : 300
+    }
+}
 const upLimit = 100; 
 const downLimit = 300;
 const darkenFPS = 3000;
@@ -22,6 +38,28 @@ var LightenColor = function(color, percent) {
       return (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (B<255?B<1?0:B:255)*0x100 + (G<255?G<1?0:G:255)).toString(16).slice(1);
 };
 //***********************************************************************************************//
+
+
+const proportion = 1.2;
+var animateSquare = () => {
+    for (var square in squares){
+        ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
+        let middle = c.clientWidth / 2; // make sure to add variation
+        let distance = squares.square.positionX;
+        distance = middle - distance
+        let movementRatio = (distance / 7) * proportion;
+        squares.square.positionX += movementRatio;
+        if (distance < middle){
+            console.log("DRAW");
+            ctx.fillRect(middle + distance, squares.square.positionY, 100, 100);
+        }
+        console.log(middle + " " + distance);
+    }
+}
+
+
+
+
 
 var setScrollStateUp = () => {
     scrollStateUp = !scrollStateUp;
@@ -59,8 +97,8 @@ var animateUp = () => {
         setScrollStateUp();
         position = "up";
         console.log("DONE");
-        setDarkenState();
-        darken(); //chains darken animation 
+        //setDarkenState();
+        //darken(); //chains darken animation 
     } else {
         requestID = window.requestAnimationFrame(animateUp);
     }
@@ -88,7 +126,7 @@ var scrolling = (event) => {
         accumulateY = 0;
         if (!scrollStateDown && !scrollStateUp && !darkenState){
             if (y > 0 && position === "down"){ //i.e. if scrolling down 
-                console.log("Scroll Up animation triggered, activating animation up + " + prevY);
+                console.log("Scroll Up animation triggered, activating animation up + ");
                 setScrollStateUp();
                 animateUp();
             } else if (y < 0 && position === "up"){
@@ -99,7 +137,9 @@ var scrolling = (event) => {
             console.log("still animating!");
         }
     }
-    accumulateY += y; 
+    if (!scrollStateDown && !scrollStateUp && !darkenState){
+        accumulateY += y; 
+    }
   }
   
   window.addEventListener('wheel', scrolling, { passive: false });
