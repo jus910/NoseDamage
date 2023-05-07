@@ -1,18 +1,28 @@
-var c = document.getElementById("map");
-var ctx = c.getContext("2d");
-var prevY = 0;
-var pageY = 0;
-ctx.fillStyle = "#00FFFF";
-console.log("loaded map.js");
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/dark-v11',
+  center: [-74.0060, 40.7128],
+  zoom: 10,
+  accessToken: "pk.eyJ1IjoicnlhbmxhdSIsImEiOiJjbGNkaTl6MjAxN2VxM3BwNHpseXYxN3BtIn0.NSi2H99_zl3PfrdhjGp6AA"
+});
 
-mapButton = document.getElementById("mapit");
-mapButton.addEventListener("click", draw);
 
-var draw = () => {
-  ctx.clearRect(0, 0, c.width, c.height);
-  ctx.beginPath();
-  ctx.arc(c.width / 2, c.height / 2, radius, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
-}
+map.on('load', () => {
+  map.addLayer({
+    id: 'trips',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: '/static/data/trips.geojson'
+    },
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round'
+    },
+    paint: {
+      'line-color': '#888',
+      'line-width': 8
+    }
 
+  });
+});
