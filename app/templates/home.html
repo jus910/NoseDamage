@@ -19,7 +19,7 @@
         margin-top: 0vh;
         background-image: url(../static/assets/nycmap.jpeg);
         /* background-size: 1540px 1080px; */
-        background-size: 80vw max(100vh, 600px);background-repeat: no-repeat;
+        background-size: max(80vw, 800px) max(100vh, 600px);background-repeat: no-repeat;
         background-position: right;
         height: 100vh;
         background-attachment: fixed;
@@ -48,15 +48,16 @@
   <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 5000;">
   </canvas>
   <!-- canvas  -->
-
+  <h1 class="position-fixed text-white" style="z-index:6000;">TAXIST</h1>
   <!-- taxi background  -->
-  <div id= "bg" class="bg-image;">
-    <h1 class="position-fixed text-white" style="z-index:2000;">TAXIST</h1>
+  <div style="background-color: black;">
+    <div id= "bg" class="bg-image;">
+    </div>
   </div>
   <!-- taxi background  -->
 
 
-  <div id = "bottom" >
+  <div id = "bottom">
     <div id ="gray" class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 100%, #343a4000 100%); position: absolute; z-index: 5;">
       <div id = "darkness" class="img-overlay">
         <div class="container">

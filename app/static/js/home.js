@@ -1,13 +1,12 @@
 var bottomPage = document.getElementById("bottom");
 var darkness = document.getElementById("darkness");
 var grayPage = document.getElementById("gray");
+var background = document.getElementById("bg");
 var c = document.getElementById("canvas");
 
 c.width = window.innerWidth;
-c.height = window.innerHeight * 2;
+c.height = window.innerHeight;
 var ctx = c.getContext("2d");
-ctx.fillStyle="red";
-
 
 var scrollStateUp = false;
 var scrollStateDown = false;
@@ -23,59 +22,43 @@ var gradientX = 100;
 var transGradientX = 100;
 var color = "#343a40";
 
-const squaresOriginal = {
-    square1 : {
-        positionX : -100,
-        positionY : 300,
-        variance: 20,
-        size: 100
-    },
-    square2 : {
-        positionX : -100,
-        positionY : 100,
-        variance: 50,
-        size: 80,
-    },
-    square3 : {
-        positionX : -100,
-        positionY : 100,
-        variance: 50,
-        size: 80,
-    },
-    square4 : {
-        positionX : -100,
-        positionY : 100,
-        variance: 50,
-        size: 80,
-    }
-}
+ctx.fillStyle= color;
 
-var squares = {
-    square1 : {
+const squaresOriginal = [
+    {
         positionX : -100,
-        positionY : 300,
-        variance: 20,
-        size: 100
+        positionY : window.innerHeight - 100,
+        variance: 30,
+        size: 90
     },
-    square2 : {
+    {
         positionX : -100,
         positionY : 100,
         variance: 50,
         size: 80,
     },
-    square3 : {
+    {
         positionX : -100,
-        positionY : 100,
-        variance: 50,
-        size: 80,
+        positionY : window.innerHeight - 150,
+        variance: 110,
+        size: 50,
     },
-    square4 : {
+    {
         positionX : -100,
-        positionY : 100,
-        variance: 50,
-        size: 80,
+        positionY : window.innerHeight - 350,
+        variance: 200,
+        size: 15,
+    },
+    {
+        positionX : -100,
+        positionY : window.innerHeight - 450,
+        variance: 150,
+        size: 25,
     }
-}
+]
+console.log(squaresOriginal[0]);
+squares = JSON.parse(JSON.stringify(squaresOriginal));
+
 const upLimit = 100; 
 const downLimit = 300;
 const darkenFPS = 3000;
@@ -120,6 +103,7 @@ var detox = () => {
 }
 
 var animateSquare = () => {
+    ctx.fillStyle= color;
     ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
     for (var square in squares){
         let middle = (c.clientWidth / 2) + squares[square].variance; // make sure to add variation
@@ -134,10 +118,9 @@ var animateSquare = () => {
     }
 }
 
-var animateSquareUp = (y) => {
-    ctx.fillStyle=pSBC( 0.05, "rgb(255, 0, 0)");
+var animateSquareUp = () => {
+    ctx.fillStyle= color;
     for (var square in squares){
-        squares[square].positionY = squares[square].positionY - y
         ctx.fillRect(squares[square].positionX, squares[square].positionY, squares[square].size, squares[square].size);
     }
     ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
@@ -202,11 +185,13 @@ var animateGradientRight = () => {
         console.log("FINISHED");
         setMapState();
         window.cancelAnimationFrame(requestID)
+        ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
         setScrollStateDown();
         animateDown();
         //setDarkenState();
         //darken(); //chains darken animation 
     } else {
+        animateSquareUp();
         let middle = 102;
         let distance = middle - gradientX;
         let movementRatio = (distance / 4) * proportion;
@@ -220,10 +205,13 @@ var animateGradientRight = () => {
     }
 }
 
+var scale = 1;
 var animateUp = () => {
     console.log("animating up")
     bottomPage.style.marginTop = "-" + currentY + "vh";
     currentY += currentY + 0.001;
+    background.style.transform = "scale(" + scale + ")";
+    scale -= 0.001;
     if (currentY > upLimit && position === "down"){
         window.cancelAnimationFrame(requestID);
         currentY = upLimit;
@@ -238,12 +226,11 @@ var animateUp = () => {
     }
 }
 
-var squaresY = 0;
 var animateDown = () => {
     console.log("animating down: " + currentY)
     bottomPage.style.marginTop = "-" + currentY + "vh";
-    squaresY += currentY /10.0;
-    animateSquareUp(1);
+    background.style.transform = "scale(" + scale + ")";
+    scale += 0.001;
     currentY -= (100 - currentY) - 0.001;
     if (currentY > downLimit){
         window.cancelAnimationFrame(requestID);
@@ -260,7 +247,7 @@ var scrolling = (event) => {
     event.preventDefault();
     let y = event.deltaY;
     console.log("Scroll triggered: " + y);
-    if (Math.abs(accumulateY) > 1000){
+    if (Math.abs(accumulateY) > 500){
         accumulateY = 0;
         if (!scrollStateDown && !scrollStateUp && !darkenState && !mapState){
             if (y > 0 && position === "down"){ //i.e. if scrolling down 
