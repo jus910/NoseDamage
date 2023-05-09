@@ -19,7 +19,7 @@
         margin-top: 0vh;
         background-image: url(../static/assets/nycmap.jpeg);
         /* background-size: 1540px 1080px; */
-        background-size: contain; background-repeat: no-repeat;
+        background-size: cover; background-repeat: no-repeat;
         background-position: right;
         height: 100vh;
         background-attachment: fixed;
@@ -78,20 +78,23 @@
   <!-- taxi background  -->
 
 
-  <div id = "bottom">
+  <div id = "bottom" style="color:aliceblue">
     <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 1px solid rgb(245, 253, 255); outline-offset: -15px;"></div> -->
     <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 5px solid rgb(169, 227, 239); outline-offset: -25px;"></div> -->
     <div id ="gray" class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 100%, #343a4000 100%); position: absolute; z-index: 5;">
-      <div id = "darkness" class="img-overlay">
-        <div class="container">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col" style="color: aliceblue;"> HOT</div>
+      <div id ="taxism" class="container-fluid" style="opacity: 1.0; color: aliceblue;position: relative; z-index: 6000; height: 100vh; width: 100vw;">
+        <div class="row" style="padding-left: 6vw;">
+          <div class="col" style="padding-top: 10vh; padding-right: 55vw;">
+            <h2 class="display-4">Taxism <small class="text-muted" style="font-size: 1rem;">(noun) \ ˈtak-ˌsi-zəm \</small></h2>
+              Definition:
+              An affinity for traditional taxi services over ride-sharing services such as Uber or Lyft, rooted in a desire to preserve the unique culture and history of taxis. Taxists may advocate for higher pay for taxi drivers and resist the perceived homogenization of the transportation industry by large, capitalist organizations. 
+            <img style="width: 45vw;" src="../static/assets/3648587.png"/>
           </div>
+          <div class="col" style="color: aliceblue;"> HOT</div>
         </div>
-        <button id="mapit">
-          update map
-        </button>
+      </div>
+      <div id = "darkness" class="img-overlay">
+        qdwaaxasda
       </div>
     </div>
     <!-- nyc map  -->

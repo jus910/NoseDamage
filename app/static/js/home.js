@@ -4,7 +4,6 @@ var grayPage = document.getElementById("gray");
 var background = document.getElementById("bg");
 var brand = document.getElementById("taxist");
 var c = document.getElementById("canvas");
-
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 var ctx = c.getContext("2d");
@@ -124,7 +123,7 @@ var animateSquare = () => {
     ctx.fillStyle= color;
     ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
     for (var square in squares){
-        let middle = (c.clientWidth / 2) - 20 + squares[square].variance; // make sure to add variation
+        let middle = (c.clientWidth * 0.57) - 20 + squares[square].variance; // make sure to add variation
         let distance = squares[square].positionX;
         distance = middle - distance
         let movementRatio = (distance / 7) * proportion;
@@ -178,14 +177,14 @@ var darken = () => { //depreciated function, but leaving it in just in case
 
 var brandScale = 1.01;
 var animateGradient = () => {
-    if (gradientX < 50){
+    if (gradientX < 57){
         console.log("FINISHED");
         setMapState();
         window.cancelAnimationFrame(requestID)
         //setDarkenState();
         //darken(); //chains darken animation 
     } else {
-        let middle = 49.9 
+        let middle = 56.9 
         let distance = gradientX - middle;
         let movementRatio = (distance / 10.0) * proportion;
         let movementRatio2 = (distance / 13.0) * proportion;
