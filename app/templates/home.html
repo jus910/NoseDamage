@@ -19,11 +19,14 @@
         margin-top: 0vh;
         background-image: url(../static/assets/nycmap.jpeg);
         /* background-size: 1540px 1080px; */
-        background-size: max(80vw, 800px) max(100vh, 600px);background-repeat: no-repeat;
+        background-size: contain; background-repeat: no-repeat;
         background-position: right;
         height: 100vh;
         background-attachment: fixed;
         position: relative;z-index: 1;
+      }
+      #marker {
+        background-color: aqua;
       }
       .img-overlay {
         height: 100vh;
@@ -32,7 +35,7 @@
         opacity: 0.0;
       }
       body {
-        overflow-y: hidden;
+        overflow: hidden;
         width: 100%;
         height: 100%;
       }
@@ -44,20 +47,40 @@
     <link rel="stylesheet" href="../static/css/home.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
+
   <!-- canvas  -->
-  <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 5000;">
-  </canvas>
+  <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 5000;"></canvas>
   <!-- canvas  -->
-  <h1 class="position-fixed text-white" style="z-index:6000;">TAXIST</h1>
+
+  <nav class="navbar navbar-expand-lg position-fixed navbar-light" style="z-index: 6000; width: 100vw; height: 10vh;">
+    <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:6000;">TAXIST</a>
+  </nav>
+
   <!-- taxi background  -->
   <div style="background-color: black;">
     <div id= "bg" class="bg-image;">
+      <div class="container-fluid" style="width: 100vw; height: 100vh;">
+        <div class="row" id="" style="height:25vh;"> TTTT</div>
+        <div class="row" id="" style="height:50vh;">
+          <div class="col">
+            <div class="row" style="height: 30%; padding-left: 2vw;">
+              <h1 class=""><strong>Taxi Data<a style="color: aliceblue;">base</a> Visualizer</strong></h1> <a>&nbsp;&nbsp;by NoseDamage</a>
+            </div>
+            <div class="row" style="height: 30%;"> EEeE</div>
+            <div class="row" style="height: 30%;"> EEeE</div>
+          </div>
+          <!-- <div class="col"> AAAA</div> -->
+        </div>
+        <div class="row" id="" style="height:25vh;"> TTTT</div>
+      </div>
     </div>
   </div>
   <!-- taxi background  -->
 
 
   <div id = "bottom">
+    <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 1px solid rgb(245, 253, 255); outline-offset: -15px;"></div> -->
+    <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 5px solid rgb(169, 227, 239); outline-offset: -25px;"></div> -->
     <div id ="gray" class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 100%, #343a4000 100%); position: absolute; z-index: 5;">
       <div id = "darkness" class="img-overlay">
         <div class="container">
@@ -72,9 +95,7 @@
       </div>
     </div>
     <!-- nyc map  -->
-    <div id="bg1">
-      <!-- <img src="../static/assets/nycmap.jpeg" style="margin-top: 0vh;height: 100vh; min-width: 960px; min-height:540px; position: absolute; right: -30vh; z-index: 1;"/> -->
-    </div>
+    <div id="bg1"></div>
     <!-- nyc map  -->
   </div>
   

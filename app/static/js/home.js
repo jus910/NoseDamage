@@ -2,6 +2,7 @@ var bottomPage = document.getElementById("bottom");
 var darkness = document.getElementById("darkness");
 var grayPage = document.getElementById("gray");
 var background = document.getElementById("bg");
+var brand = document.getElementById("taxist");
 var c = document.getElementById("canvas");
 
 c.width = window.innerWidth;
@@ -27,25 +28,25 @@ ctx.fillStyle= color;
 const squaresOriginal = [
     {
         positionX : -100,
-        positionY : window.innerHeight - 100,
-        variance: 30,
-        size: 90
+        positionY : window.innerHeight - 150,
+        variance: 20,
+        size: 60
     },
     {
         positionX : -100,
         positionY : 100,
         variance: 50,
-        size: 80,
-    },
-    {
-        positionX : -100,
-        positionY : window.innerHeight - 150,
-        variance: 110,
         size: 50,
     },
     {
         positionX : -100,
-        positionY : window.innerHeight - 350,
+        positionY : window.innerHeight - 200,
+        variance: 110,
+        size: 20,
+    },
+    {
+        positionX : -100,
+        positionY : window.innerHeight - 340,
         variance: 200,
         size: 15,
     },
@@ -56,6 +57,23 @@ const squaresOriginal = [
         size: 25,
     }
 ]
+for (var i = 0; i < 30; i++) {
+    squaresOriginal.push({
+        positionX : -100,
+        positionY : Math.random() * window.innerHeight,
+        variance: Math.random() * 25 + 5,
+        size: Math.random() * 50 + 1 ,
+    })
+};
+
+for (var i = 0; i < 20; i++) {
+    squaresOriginal.push({
+        positionX : -100,
+        positionY : Math.random() * window.innerHeight,
+        variance: Math.random() * 250 + 25,
+        size: Math.random() * 20 + 1 ,
+    })
+};
 console.log(squaresOriginal[0]);
 squares = JSON.parse(JSON.stringify(squaresOriginal));
 
@@ -106,7 +124,7 @@ var animateSquare = () => {
     ctx.fillStyle= color;
     ctx.clearRect(0, 0, c.clientWidth, c.clientHeight);
     for (var square in squares){
-        let middle = (c.clientWidth / 2) + squares[square].variance; // make sure to add variation
+        let middle = (c.clientWidth / 2) - 20 + squares[square].variance; // make sure to add variation
         let distance = squares[square].positionX;
         distance = middle - distance
         let movementRatio = (distance / 7) * proportion;
@@ -158,6 +176,7 @@ var darken = () => { //depreciated function, but leaving it in just in case
     }
 }
 
+var brandScale = 1.01;
 var animateGradient = () => {
     if (gradientX < 50){
         console.log("FINISHED");
