@@ -31,16 +31,31 @@ def csv2geojson():
             feature = {
                 "type": "Feature",
                 "geometry": {
-                    "type": "LineString",
+                    "type": "Point",
                     "coordinates": [
-                        [row["pickup_longitude"], row["pickup_latitude"]],
-                        [row["dropoff_longitude"], row["dropoff_latitude"]],
+                        row["dropoff_longitude"], row["dropoff_latitude"]
                     ],
                 },
-                "properties": row,
+                "properties": {
+                    "point_type": "dropoff"
+                },
             }
-
             features.append(feature)
+
+            feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        row["pickup_longitude"], row["pickup_latitude"]
+                    ],
+                },
+                "properties": {
+                    "point_type": "pickup"
+                },
+            }
+            features.append(feature)
+
 
     geojson["features"] = features
 

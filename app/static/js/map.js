@@ -10,19 +10,29 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   map.addLayer({
     id: 'trips',
-    type: 'line',
+    type: 'circle',
     source: {
       type: 'geojson',
       data: '/static/data/trips.geojson'
     },
-    layout: {
-      'line-join': 'round',
-      'line-cap': 'round'
-    },
     paint: {
-      'line-color': '#888',
-      'line-width': 8
+      // Make circles larger as the user zooms from z12 to z22.
+      'circle-radius': {
+        'base': 1.75,
+        'stops': [
+          [12, 2],
+          [22, 180]
+        ]
+      },
+      "circle-color": [
+        "match",
+        ["get", "point_type"],
+        "dropoff",
+        "#00ff00",
+        "pickup",
+        "#ff0000",
+        '#ccc'
+      ]
     }
-
   });
 });
