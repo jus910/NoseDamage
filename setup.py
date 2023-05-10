@@ -79,9 +79,10 @@ def load_db():
             with open(path) as f:
                 reader = csv.DictReader(f)
                 for row in reader:
+                    
                     trip = (
-                        row["tpep_pickup_datetime"],
-                        row["tpep_dropoff_datetime"],
+                        convertTime(row["tpep_pickup_datetime"]),
+                        convertTime(row["tpep_dropoff_datetime"]),
                         row["passenger_count"],
                         row["trip_distance"],
                         row["pickup_longitude"],
@@ -96,6 +97,22 @@ def load_db():
 
             taxi.add_new_trips(trips)
             print("done")
+
+def convertTime(given):
+    formatted = ""
+    for char in given[0:11]:
+        if char == "/":
+            formatted += "-"
+        else:
+            formatted += char
+    if  given[-2:] == "PM":
+        hr = int(given[11:13])
+        if hr != 12:
+            hr += 12
+        formatted += str(hr) + given[13:19]
+    else:
+        formatted += given[11:19]
+    return formatted
 
 download_data()
 csv2geojson()
