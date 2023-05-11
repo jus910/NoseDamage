@@ -1,3 +1,5 @@
+const colors = ['#00ff00', '#ff0000'];
+
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',
@@ -40,9 +42,9 @@ map.on('load', () => {
         "match",
         ["get", "point_type"],
         "dropoff",
-        "#00ff00",
+        colors[0],
         "pickup",
-        "#ff0000",
+        colors[1],
         '#ccc'
       ]
     }
@@ -55,7 +57,7 @@ map.on('load', () => {
 
   function updateMarkers() {
     const newMarkers = {};
-    const features = map.querySourceFeatures('earthquakes');
+    const features = map.querySourceFeatures('trip-data');
 
     // for every cluster on the screen, create an HTML marker for it (if we didn't yet),
     // and add it to the map if it's not there already
@@ -111,6 +113,7 @@ function createDonutChart(props) {
 
   let html = `<div>
     <svg width="${w}" height="${w}" viewbox="0 0 ${w} ${w}" text-anchor="middle" style="font: ${fontSize}px sans-serif; display: block">`;
+
 
   for (let i = 0; i < counts.length; i++) {
     html += donutSegment(
