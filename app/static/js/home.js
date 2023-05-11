@@ -3,6 +3,7 @@ var darkness = document.getElementById("darkness");
 var grayPage = document.getElementById("gray");
 var background = document.getElementById("bg");
 var brand = document.getElementById("taxist");
+var years = document.querySelectorAll("div.fontYears");
 var c = document.getElementById("canvas");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
@@ -108,6 +109,60 @@ const pSBC=(p,c0,c1,l)=>{
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 }
 //***********************************************************************************************//
+var currentHover = years[0];
+var selectedHover = years[0];
+var timeOutID;
+// var isolateYear = () => {
+//     console.log("WHAT");
+//     setTimeout(()=>{
+//     selectedHover.style.fontSize = "20vh";
+//     selectedHover.style.paddingTop = "0vh";
+// },500)}
+for(var i = 0; i < years.length; i++){
+    years[i].addEventListener("mouseenter", (e)=>{
+        var year = e.target;
+        console.log(year.innerHTML);
+        if (!year.isEqualNode(selectedHover)){
+            year.style.fontSize = "20vh";
+            year.style.paddingTop = "0vh";
+            setTimeout(() => {
+                selectedHover.style.fontSize = "5vh";
+                selectedHover.style.paddingTop = "15vh";
+            }, 1)
+            clearTimeout(timeOutID);
+        }
+    })
+    years[i].addEventListener("mouseleave", (e)=>{
+        var year = e.target;
+        console.log(year.innerHTML + "LEAVE");
+        if (!year.isEqualNode(selectedHover)){
+            year.style.fontSize = "5vh";
+            year.style.paddingTop = "15vh";
+            timeOutID = setTimeout(()=>{
+                selectedHover.style.fontSize = "20vh";
+                selectedHover.style.paddingTop = "0vh";
+            },500)
+        }
+    })
+    years[i].addEventListener("click", (e)=>{
+        var year = e.target;
+        if (!year.isEqualNode(selectedHover)){
+            selectedHover.style.fontSize = "5vh";
+            selectedHover.style.paddingTop = "15vh";
+            selectedHover = year;
+        }
+    })
+}
+
+// var abc = document.getElementById("2011");
+// var funct = (event) =>{
+//     console.log("EEEEEEEEEEEEEEE");
+//     abc.style.fontSize = "20vh";
+// }
+// abc.addEventListener("mouseover", funct);
+// abc.addEventListener("mouseout", (event)=>{
+//     console.log("YYYYYYYYY");
+// })
 
 var detox = () => {
     gradientX = 100;
@@ -252,6 +307,7 @@ var animateDown = () => {
     currentY -= (100 - currentY) - 0.001;
     if (currentY > downLimit){
         window.cancelAnimationFrame(requestID);
+        bottomPage.style.marginTop = "0";
         currentY = 0;
         setScrollStateDown();
         position = "down";
@@ -270,9 +326,11 @@ var scrolling = (event) => {
         if (!scrollStateDown && !scrollStateUp && !darkenState && !mapState){
             if (y > 0 && position === "down"){ //i.e. if scrolling down 
                 console.log("Scroll Up animation triggered, activating animation up + ");
+                c.style.zIndex = "10";
                 setScrollStateUp();
                 animateUp();
             } else if (y < 0 && position === "up"){
+                c.style.zIndex = "-1";
                 setMapState();
                 animateGradientRight();
             }

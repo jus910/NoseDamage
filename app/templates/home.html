@@ -10,14 +10,27 @@
         height:100%; width:100%;
       } */
       #bg {
-        background-image: url(../static/assets/taxi.jpg);
-        background-size: cover;
+        background-image: url(../static/assets/vecteezy_abstract-black-and-white-halftone-background_9222859.png), url(../static/assets/taxi.jpg);
+        background-size: 600px,cover;
+        background-position: bottom left, 0;
+        background-repeat: repeat-x,no-repeat;
         height: 100vh;
         background-attachment: fixed;
+        /* -webkit-mask-image: url(../static/assets/vector7.png);
+        mask-image: url(../static/assets/vector7.png);
+        mask-size: 500px 500px;
+        mask-position: center; */
       }
+      /* #bg::before{
+        content: '';
+        position: absolute;
+        z-index: -1;
+        height: 100vh;
+      } */
       #bg1 {
         margin-top: 0vh;
-        background-image: url(../static/assets/nycmap.jpeg);
+        background-image:
+        url(../static/assets/map3.jpg);
         /* background-size: 1540px 1080px; */
         background-size: cover; background-repeat: no-repeat;
         background-position: right;
@@ -43,24 +56,57 @@
         width: 100%;
         height: 100%;
       }
+      .polka {
+        background-image: 
+          radial-gradient(rgb(255, 255, 255) 36.4%, transparent 36.4%),
+          radial-gradient(rgb(123, 29, 89) 36.4%, transparent 36.4%);
+        background-position: 12px 12px, 10.8px 13.2px;
+        background-size: 24px 24px;
+        /* background-color: rgb(0, 0, 0); */
+        -webkit-mask-image: linear-gradient(200deg, rgb(0,0,0,0) 50%,rgb(0 0 0));
+        mask-image: linear-gradient(200deg, rgb(0,0,0,0) 50%,rgb(0 0 0));
+        mask-size: auto;
+      }
+      .fonty {
+        /* font-family: 'Instrument Serif', serif;
+        font-family: 'Nanum Gothic', sans-serif; */
+        font-family: 'Source Serif Pro', serif;
+      }
+      .fontYears{
+        /* width: 19vmax; */
+        /* background-color: aqua; */
+        text-align: center;
+        padding-top: 15vh;
+        font-size: 5vmin;
+        transition: font-size 0.2s, padding-top 0.2s;
+      }
+      .fontYears2{
+        width: 3vmin;
+        padding-top: 13vh;
+        font-size: 7vmin;
+      }
+      
     </style>
     <link rel="stylesheet" href="../static/css/home.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Nanum+Gothic&family=Source+Serif+Pro:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
 
   <!-- canvas  -->
-  <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 100;"></canvas>
+  <canvas width = "600" height = "600" id="canvas" style="position: absolute; z-index: 10;"></canvas>
   <!-- canvas  -->
 
-  <nav class="navbar navbar-expand-lg position-fixed navbar-light" style="z-index: 6000; width: 100vw; height: 5vh; background-color: bisque;">
-    <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:6000;">TAXIST</a>
+  <nav class="navbar navbar-expand-lg position-fixed navbar-light" style="z-index: 600; width: 100vw; height: 10vh; background:linear-gradient(rgb(0, 0, 0, 0.5), rgb(0,0,0,0));">
+    <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:600;">TAXIST</a>
     <div class="collapse navbar-collapse position-fixed" id="navbarSupportedContent" style="right: 10vw;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="#">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link text-white" href="#">Link</a>
         </li>
       </ul>
     </div>
@@ -69,19 +115,28 @@
   <!-- taxi background  -->
   <div style="background-color: black;">
     <div id= "bg" class="bg-image;">
-      <div class="container-fluid" style="width: 100vw; height: 100vh;">
+      <div class="container-fluid" style="width: 100vw; height: 100vh; background: linear-gradient(rgb(0,0,0,0) 80%, rgb(0,0,0,0.4) 85%);">
         <div class="row" id="" style="height:25vh;"> TTTT</div>
-        <div class="row" id="" style="height:50vh;">
+        <div class="row" id="" style="height:40vh;">
           <div class="col">
-            <div class="row" style="height: 30%; padding-left: 2vw;">
-              <h1 class=""><strong>Taxi Data<a style="color: aliceblue;">base</a> Visualizer</strong></h1> <a>&nbsp;&nbsp;by NoseDamage</a>
+            <div class="row" style="height: 30%; padding: 2vw;">
+              <h1 class="" style="font-size: 2.5rem;"><strong><a style="color: aliceblue;">Taxi Database</a> Visualizer</strong></h1> <a>&nbsp;&nbsp;by NoseDamage</a>
             </div>
-            <div class="row" style="height: 30%;"> EEeE</div>
-            <div class="row" style="height: 30%;"> EEeE</div>
+            <div class="row" style="height: 35%;"> EEeE</div>
           </div>
           <!-- <div class="col"> AAAA</div> -->
         </div>
-        <div class="row" id="" style="height:25vh;"> TTTT</div>
+        <div  id="years" class="row gx-5 text-white d-flex justify-content-center align-text-bottom align-text-center fonty" id="" style="height:25vh; position: absolute; bottom: 0; width: 100vw; padding-left: 4vmin; padding-right: 4vmin; z-index: 9999;">
+          <div id="2010" class="col col-fluid fontYears" style="padding-top: 0vh; font-size: 20vmin;">2010·</div>
+          <div class="fontYears2">·</div>
+          <div id="2011" class="col col-fluid fontYears">2011·</div>
+          <div class="fontYears2">·</div>
+          <div id="2012" class="col col-fluid fontYears">2012·</div>
+          <div class="fontYears2">·</div>
+          <div id="2013" class="col col-fluid fontYears">2013·</div>
+          <div class="fontYears2">·</div>
+          <div id="2014" class="col col-fluid fontYears">2014·</div>
+        </div>
       </div>
     </div>
   </div>
@@ -91,19 +146,21 @@
   <div id = "bottom" style="color:aliceblue">
     <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 1px solid rgb(245, 253, 255); outline-offset: -15px;"></div> -->
     <!-- <div style="position: absolute; z-index: 10; width: 100vw; height: 100vh; outline: 5px solid rgb(169, 227, 239); outline-offset: -25px;"></div> -->
-    <div id ="gray" class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 100%, #343a4000 100%); position: absolute; z-index: 500;">
-      <div id ="taxism" class="container-fluid" style="opacity: 1.0; color: aliceblue;position: relative; z-index: 6000; height: 100vh; width: 100vw;">
-        <div class="row" style="padding-left: 6vw;">
-          <div class="col" style="padding-top: 10vh; padding-right: 55vw;">
+    <div id ="gray" class="" style="margin-top: 0vh; height:100vh; width:100vw;background:linear-gradient(to right, #343a40 100%, #343a4000 100%); position: absolute; z-index: 50;">
+      <div id ="taxism" class="container-fluid" style="opacity: 1.0; color: aliceblue;position: relative; z-index: 600; height: 100vh; width: 100vw;">
+        <div class="row" style="">
+          <div class="col" style="padding-top: 10vh; padding-right: 55vw; padding-left: 6vw; ">
             <h2 class="display-4">Taxism <small class="text-muted" style="font-size: 1rem;">(noun) \ ˈtak-ˌsi-zəm \</small></h2>
-              Definition:
-              An affinity for traditional taxi services over ride-sharing services such as Uber or Lyft, rooted in a desire to preserve the unique culture and history of taxis. Taxists may advocate for higher pay for taxi drivers and resist the perceived homogenization of the transportation industry by large, capitalist organizations. 
-              <form action="/map" style="position: absolute; z-index: 7000; margin-top: 20px;">
+              <p class="lead">
+                An affinity for traditional taxi services over ride-sharing services such as Uber or Lyft, rooted in a desire to preserve the unique culture and history of taxis. Taxists may advocate for higher pay for taxi drivers and resist the perceived homogenization of the transportation industry by large, capitalist organizations. 
+              </p>
+              <form action="/map" style="position: absolute; z-index: 700; margin-top: 20px;">
                 <button type="submit" class="btn btn-primary">Get Started</button>
               </form>
-              <img style="width: 45vw; position: relative; z-index: 6999" src="../static/assets/3648587.png"/>
+              <img style="width: 45vw; position: relative; z-index: 699; bottom: 10vh;" src="../static/assets/3648587.png"/>
+              <div class="polka" style="width: 50vw; position: absolute; z-index: 6888; height: 40vh; top: 60%;left: 0%;">dd</div>
           </div>
-          <div class="col" style="color: aliceblue;"> HOT</div>
+          <div class="col" style="color: aliceblue;"></div>
         </div>
       </div>
       <div id = "darkness" class="img-overlay">
