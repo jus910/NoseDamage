@@ -39,3 +39,9 @@ RyanL/JustinM/FangC -- 5/9/2023 09:00
   Setup.py puts the data into a db file and lat/longitude of taxi rides into a geojson file in the static folder. 
   put pip install requirements file in place
 ==============================================================
+DanielH -- 5/10/2023 23:39
+--------------------------------------------------------------
+  Added responsive text to the homepage for selecting years
+==============================================================
+
+
