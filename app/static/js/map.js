@@ -54,3 +54,20 @@ map.on('click', (event) => {
   )
   .addTo(map);
 });
+
+offButton = document.getElementById("toggleOff");
+offButton.addEventListener("click", () => {
+    map.setLayoutProperty(
+      'trips',
+      'visibility', 
+      'none'
+    )
+});
+onButton = document.getElementById("toggleOn");
+onButton.addEventListener("click", () => {
+  map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'visible'
+  )
+});
