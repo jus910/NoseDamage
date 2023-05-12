@@ -1,9 +1,23 @@
 var slider = document.getElementById("slider");
 var sliderText = document.getElementById("sliderText")
+var pickup = document.getElementById("customSwitch1")
+var dropoff = document.getElementById("customSwitch2")
+var pickupValue = pickup.checked
+var dropoffValue = dropoff.checked
 sliderText.innerHTML = slider.value;
-slider.oninput = ()=>{
+
+pickup.onclick = () =>{
+  pickupValue = pickup.checked
+  console.log(pickupValue)
+}
+pickup.onclick = () =>{
+  dropoffValue = dropoff.checked
+  console.log(dropoffValue)
+}
+slider.oninput = () =>{
   sliderText.innerText = slider.value
 }
+
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',

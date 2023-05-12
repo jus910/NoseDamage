@@ -16,9 +16,9 @@ def home():
 
 @app.route("/map")
 def map():
-    if 'year' in session:
+    if 'year' not in session:
         session['year'] = '2010'
-    return render_template('map.html', session['year'])
+    return render_template('map.html', year = session['year'])
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():
