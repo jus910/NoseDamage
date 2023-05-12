@@ -109,15 +109,36 @@ const pSBC=(p,c0,c1,l)=>{
     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
 }
 //***********************************************************************************************//
+
+
 var currentHover = years[0];
 var selectedHover = years[0];
 var timeOutID;
-// var isolateYear = () => {
-//     console.log("WHAT");
-//     setTimeout(()=>{
-//     selectedHover.style.fontSize = "20vh";
-//     selectedHover.style.paddingTop = "0vh";
-// },500)}
+
+var exit = () => {
+    fetch('/get_year', {
+        method: 'POST',
+        body: JSON.stringify(selectedHover.innerHTML),
+        headers: {
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((response)=>{
+        return response
+    }).then((res)=>{
+        console.log(res.status)
+    }).catch((error)=>{
+        console.log(error)
+    });
+}
+
+function myFunc(vars){
+    console.log(vars)
+    selectedHover = years[parseInt(vars) - 2010];
+    selectedHover.style.fontSize = "20vh";
+    selectedHover.style.paddingTop = "0vh";
+}
+
 for(var i = 0; i < years.length; i++){
     years[i].addEventListener("mouseenter", (e)=>{
         var year = e.target;
@@ -141,7 +162,7 @@ for(var i = 0; i < years.length; i++){
             timeOutID = setTimeout(()=>{
                 selectedHover.style.fontSize = "20vh";
                 selectedHover.style.paddingTop = "0vh";
-            },500)
+            },250)
         }
     })
     years[i].addEventListener("click", (e)=>{
@@ -150,10 +171,10 @@ for(var i = 0; i < years.length; i++){
             selectedHover.style.fontSize = "5vh";
             selectedHover.style.paddingTop = "15vh";
             selectedHover = year;
+            exit();
         }
     })
 }
-
 // var abc = document.getElementById("2011");
 // var funct = (event) =>{
 //     console.log("EEEEEEEEEEEEEEE");

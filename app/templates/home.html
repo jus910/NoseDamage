@@ -106,7 +106,7 @@
           <a class="nav-link text-white" href="#">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Link</a>
+          <a class="nav-link text-white" href="/map">Map</a>
         </li>
       </ul>
     </div>
@@ -127,15 +127,15 @@
           <!-- <div class="col"> AAAA</div> -->
         </div>
         <div  id="years" class="row gx-5 text-white d-flex justify-content-center align-text-bottom align-text-center fonty" id="" style="height:25vh; position: absolute; bottom: 0; width: 100vw; padding-left: 4vmin; padding-right: 4vmin; z-index: 9999;">
-          <div id="2010" class="col col-fluid fontYears" style="padding-top: 0vh; font-size: 20vmin;">2010·</div>
+          <div id="2010" class="col col-fluid fontYears">2010</div>
           <div class="fontYears2">·</div>
-          <div id="2011" class="col col-fluid fontYears">2011·</div>
+          <div id="2011" class="col col-fluid fontYears">2011</div>
           <div class="fontYears2">·</div>
-          <div id="2012" class="col col-fluid fontYears">2012·</div>
+          <div id="2012" class="col col-fluid fontYears">2012</div>
           <div class="fontYears2">·</div>
-          <div id="2013" class="col col-fluid fontYears">2013·</div>
+          <div id="2013" class="col col-fluid fontYears">2013</div>
           <div class="fontYears2">·</div>
-          <div id="2014" class="col col-fluid fontYears">2014·</div>
+          <div id="2014" class="col col-fluid fontYears">2014</div>
         </div>
       </div>
     </div>
@@ -177,5 +177,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!-- <script src="../static/js/map.js"></script> -->
   <script src="../static/js/home.js"></script>
+  <script type="text/javascript">
+    myFunc({{year|tojson}});
+  </script>
 
 </html>
