@@ -27,8 +27,8 @@
     </nav>
     <div class="container rounded" style="width: 300px; height: 200px; position: absolute; bottom: 5vh; left: 18px; background-color: rgba(0, 0, 0, 0.356); z-index: 9999;">
       <div class="row" style="height: 50%;">AAAA</div>
-      <div class="row">
-        <input name="yearSlider" type="range" min="2010" max="2014" value="2010" style="width: 100%;">
+      <div class="row" style="padding-left: 8px;">
+        <input id="slider" name="yearSlider" type="range" min="2010" max="2014" value={{year}} style="width: 80%;"><a id="sliderText" style="color: aliceblue; margin: auto;"></a></input>
       </div>
     </div>
     <div id="map" style="width: 100vw; height: 100vh;"></div>

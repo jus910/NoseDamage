@@ -1,3 +1,9 @@
+var slider = document.getElementById("slider");
+var sliderText = document.getElementById("sliderText")
+sliderText.innerHTML = slider.value;
+slider.oninput = ()=>{
+  sliderText.innerText = slider.value
+}
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',
