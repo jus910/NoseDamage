@@ -18,14 +18,17 @@
 </head>
 <body style="margin: 0;">
     <nav class="navbar navbar-expand-lg position-fixed navbar-light" style="z-index: 600; width: 100vw; height: 10vh; background:linear-gradient(rgb(0, 0, 0, 0.5), rgb(0,0,0,0));">
-        <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:600;">TAXIST</a>
+        <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:600;" href="/">TAXIST</a>
         <div class="collapse navbar-collapse position-fixed" id="navbarSupportedContent" style="right: 10vw;">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link text-white" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="#">Map</a>
+            </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Link</a>
+              <a class="nav-link text-white" href="#">Stats</a>
             </li>
           </ul>
         </div>
@@ -52,10 +55,12 @@
                   <label class="custom-control-label" for="customSwitch2">DropOff</label>
                 </div>
               </div>
-              <form class="form-inline">
-                <label class="form-label" for="slider">Year: <a id="sliderText" style="color: aliceblue; margin: auto;"></a></label>
-              <input id="slider" class="form-control-range" name="yearSlider" type="range" min="2010" max="2014" value={{year}}></input>
-              </form>
+              <div style="padding-top: 20px;">
+                <form class="form-inline">
+                  <label class="form-label" for="slider">Year: <a id="sliderText" style="color: aliceblue; margin: auto;"></a></label>
+                  <input id="slider" class="form-control-range" name="yearSlider" type="range" min="2010" max="2014" value={{year}}></input>
+                </form>
+              </div>
             </div>
           </div>
         </div>

@@ -72,6 +72,11 @@
         font-family: 'Nanum Gothic', sans-serif; */
         font-family: 'Source Serif Pro', serif;
       }
+      .fontist {
+        /* font-family: 'Instrument Serif', serif;*/
+        font-family: 'Nanum Gothic', sans-serif;
+        /* font-family: 'Source Serif Pro', serif; */
+      }
       .fontYears{
         /* width: 19vmax; */
         /* background-color: aqua; */
@@ -99,7 +104,7 @@
   <!-- canvas  -->
 
   <nav class="navbar navbar-expand-lg position-fixed navbar-light" style="z-index: 600; width: 100vw; height: 10vh; background:linear-gradient(rgb(0, 0, 0, 0.5), rgb(0,0,0,0));">
-    <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:600;">TAXIST</a>
+    <a id = "taxist" class="position-fixed text-white navbar-brand" style="z-index:600;" href="/">TAXIST</a>
     <div class="collapse navbar-collapse position-fixed" id="navbarSupportedContent" style="right: 10vw;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -107,6 +112,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="/map">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Stats</a>
         </li>
       </ul>
     </div>
@@ -150,15 +158,15 @@
       <div id ="taxism" class="container-fluid" style="opacity: 1.0; color: aliceblue;position: relative; z-index: 600; height: 100vh; width: 100vw;">
         <div class="row" style="">
           <div class="col" style="padding-top: 10vh; padding-right: 55vw; padding-left: 6vw; ">
-            <h2 class="display-4">Taxism <small class="text-muted" style="font-size: 1rem;">(noun) \ ˈtak-ˌsi-zəm \</small></h2>
+            <h2 class="display-4 fontist">Taxism <small class="text-muted" style="font-size: 1rem;">(noun) \ ˈtak-ˌsi-zəm \</small></h2>
               <p class="lead">
                 An affinity for traditional taxi services over ride-sharing services such as Uber or Lyft, rooted in a desire to preserve the unique culture and history of taxis. Taxists may advocate for higher pay for taxi drivers and resist the perceived homogenization of the transportation industry by large, capitalist organizations. 
               </p>
-              <form action="/map" style="position: absolute; z-index: 700; margin-top: 20px;">
+              <form action="/map" style="position: absolute; z-index: 9999; margin-top: 20px;">
                 <button type="submit" class="btn btn-primary">Get Started</button>
               </form>
-              <img style="width: 45vw; position: relative; z-index: 699; bottom: 10vh;" src="../static/assets/3648587.png"/>
-              <div class="polka" style="width: 50vw; position: absolute; z-index: 6888; height: 40vh; top: 60%;left: 0%;">dd</div>
+              <img style="width: 45vw; position: relative; z-index: 699;" src="../static/assets/3648587.png"/>
+              <div class="polka" style="width: 50vw; position: absolute; z-index: 6888; height: 40vh; top: 70%;left: 0%;">dd</div>
           </div>
           <div class="col" style="color: aliceblue;"></div>
         </div>
