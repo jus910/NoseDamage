@@ -21,7 +21,6 @@ def csv2geojson():
     geojson = {"type": "FeatureCollection", "features": []}
 
     features = []
-    trip_id = 0
 
     for i in range(5):
         path = f"app/static/data/201{i}.csv"
@@ -40,7 +39,6 @@ def csv2geojson():
                     "properties": {
                         "point_type": "dropoff",
                         "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
-                        "trip_id": trip_id,
                         "to": f'{row["pickup_longitude"]},{row["pickup_latitude"]}'
                     },
                 }
@@ -57,12 +55,10 @@ def csv2geojson():
                     "properties": {
                         "point_type": "pickup",
                         "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
-                        "trip_id": trip_id,
                         "to": f'{row["dropoff_longitude"]},{row["dropoff_latitude"]}'
                     },
                 }
                 features.append(feature)
-                trip_id += 1
 
 
     geojson["features"] = features
