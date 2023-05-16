@@ -18,10 +18,12 @@ map.on('load', () => {
     clusterRadius: 150,
     clusterProperties: {
       // count up the number of pickups and dropoffs in each cluster
+      // prefix notation: like skeme
       'pickup': ['+', ['case', ["==", "pickup", ['get', 'point_type']], 1, 0]],
       'dropoff': ['+', ['case', ["==", "dropoff", ['get', 'point_type']], 1, 0]],
     }
   })
++
 
   // only renders unclustered points due to filter
   map.addLayer({
@@ -165,10 +167,16 @@ map.on('click', (event) => {
   }
   const feature = features[0];
 
+
+  const properties = feature.properties
+
+  console.log(properties.point_type)
+
+
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
     .setHTML(
-      `<p>${JSON.stringify(feature.properties)}</p>`
+      `<p>${JSON.stringify(properties)}</p>`
     )
     .addTo(map);
 });
