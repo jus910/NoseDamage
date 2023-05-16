@@ -20,6 +20,10 @@ def map():
         session['year'] = '2010'
     return render_template('map.html', year = session['year'])
 
+@app.route("/about")
+def about():
+    return render_template('about.html')
+
 @app.route("/get_year", methods=['GET','POST'])
 def data():
     if (request.method == 'POST'):
