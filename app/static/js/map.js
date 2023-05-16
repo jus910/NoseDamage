@@ -1,7 +1,9 @@
 var slider = document.getElementById("slider");
-var sliderText = document.getElementById("sliderText")
-var pickup = document.getElementById("customSwitch1")
-var dropoff = document.getElementById("customSwitch2")
+var sliderText = document.getElementById("sliderText");
+var pickup = document.getElementById("customSwitch1");
+var dropoff = document.getElementById("customSwitch2");
+var reset = document.getElementById("reset"); //reset button
+var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
 var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
 sliderText.innerHTML = slider.value;
@@ -17,6 +19,14 @@ pickup.onclick = () =>{
 slider.oninput = () =>{
   sliderText.innerText = slider.value
 }
+
+reset.addEventListener("click", ()=>{
+  //RESET THE MAP
+})
+
+select.addEventListener("click", ()=>{
+  //APPLY FILTERS
+})
 
 const map = new mapboxgl.Map({
   container: 'map',

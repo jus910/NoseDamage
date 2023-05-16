@@ -34,8 +34,11 @@
         </div>
     </nav>
     <div class="rounded" style="width: 300px; position: absolute; top: 15vh; left: 18px; background-color: rgba(0, 0, 0, 0.356); z-index: 9999;">
-      <div class="card-header" style="height: 200px;">AAAA</div>
-      
+      <div class="card-header container-fluid" style="height: 200px;">
+        <div class="row justify-content-end">
+          <button id="reset" class="btn btn-outline-danger">Reset</button>
+        </div>
+      </div>
       <div id = "accordion">
         <div class="card" style="width: 100%; background-color: rgba(0, 0, 0, 0.356);">
           <div class="card-header" id="headingOne">
@@ -55,13 +58,16 @@
                   <label class="custom-control-label" for="customSwitch2">DropOff</label>
                 </div>
               </div>
-              <div style="padding-top: 20px;">
+              <div style="padding-top: 8px;">
                 <form class="form-inline">
-                  <div style="padding-bottom: 8px;">
-                    <label class="form-label" for="slider">Year:&nbsp;&nbsp;<a id="sliderText" style="color: aliceblue; margin: auto;"></a></label>
-                  </div>
-                  <input id="slider" class="form-control-range" name="yearSlider" type="range" min="2010" max="2014" value={{year}}></input>
+                  <!-- <div style="padding-bottom: 8px;"> -->
+                  <!-- </div> -->
+                  <label class="form-label" for="slider">Year:&nbsp;&nbsp;<a id="sliderText" style="color: aliceblue; margin: auto; display: inline;"></a></label>&nbsp;&nbsp;
+                  <input id="slider" class="form-control-range" name="yearSlider" type="range" min="2010" max="2014" value={{year}} style="width: 65%;"></input>
                 </form>
+              </div>
+              <div style="padding-top: 10px;">
+                <button id="select" class="btn btn-primary  btn-sm">Select</button>
               </div>
             </div>
           </div>
