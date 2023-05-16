@@ -52,6 +52,36 @@ map.on('load', () => {
     }
   });
 
+
+  // layer for showing route
+  map.addLayer({
+    id: 'route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            [100.0, 0.0],
+            [101.0, 1.0]
+          ]
+        }
+      }
+    },
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#3887be',
+        'line-width': 5,
+        'line-opacity': 0.75
+      }
+    });
+
   // src: https://docs.mapbox.com/mapbox-gl-js/example/cluster-html/
   // objects for caching and keeping track of HTML marker objects (for performance)
   const markers = {};
@@ -158,19 +188,55 @@ function donutSegment(start, end, r, r0, color) {
 
 
 // Popups -- Will change to display route instead of popup box
-map.on('click', (event) => {
-  const features = map.queryRenderedFeatures(event.point, {
-    layers: ['trips']
-  });
-  if (!features.length) {
-    return;
-  }
-  const feature = features[0];
-
-
+map.on('click', 'trips', async (e) => {
+  // const features = map.queryRenderedFeatures(event.point, {
+  //   layers: ['trips']
+  // });
+  // if (!features.length) {
+  //   return;
+  // }
+  const feature = e.features[0];
   const properties = feature.properties
 
-  console.log(properties.point_type)
+  var start;
+  var end;
+
+  if (properties.point_type == "pickup") {
+    start = feature.geometry.coordinates.join(",");
+    end = properties.to;
+  } else {
+    start = properties.to;
+    end = feature.geometry.coordinates.join(",");
+  }
+
+
+  const response = await (await fetch(`/api/directions?start=${start}&end=${end}`)).json()
+  const route = response.routes[0].geometry.coordinates;
+
+  const geojson = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'LineString',
+      coordinates: route
+    }
+  };
+
+
+  map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'none'
+  )
+  console.log(response);
+
+  map.getSource('route').setData(geojson);
+
+
+  // map.setLayoutProperty('clusters-')
+
+
+
 
 
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
