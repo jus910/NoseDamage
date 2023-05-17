@@ -1,4 +1,33 @@
 const colors = ['#00ff00', '#ff0000'];
+var slider = document.getElementById("slider");
+var sliderText = document.getElementById("sliderText");
+var pickup = document.getElementById("customSwitch1");
+var dropoff = document.getElementById("customSwitch2");
+var reset = document.getElementById("reset"); //reset button
+var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
+var pickupValue = pickup.checked
+var dropoffValue = dropoff.checked
+sliderText.innerHTML = slider.value;
+
+pickup.onclick = () =>{
+  pickupValue = pickup.checked
+  console.log(pickupValue)
+}
+pickup.onclick = () =>{
+  dropoffValue = dropoff.checked
+  console.log(dropoffValue)
+}
+slider.oninput = () =>{
+  sliderText.innerText = slider.value
+}
+
+reset.addEventListener("click", ()=>{
+  //RESET THE MAP
+})
+
+select.addEventListener("click", ()=>{
+  //APPLY FILTERS
+})
 
 const map = new mapboxgl.Map({
   container: 'map',
@@ -18,10 +47,12 @@ map.on('load', () => {
     clusterRadius: 150,
     clusterProperties: {
       // count up the number of pickups and dropoffs in each cluster
+      // prefix notation: like skeme
       'pickup': ['+', ['case', ["==", "pickup", ['get', 'point_type']], 1, 0]],
       'dropoff': ['+', ['case', ["==", "dropoff", ['get', 'point_type']], 1, 0]],
     }
   })
++
 
   // only renders unclustered points due to filter
   map.addLayer({
@@ -49,6 +80,36 @@ map.on('load', () => {
       ]
     }
   });
+
+
+  // layer for showing route
+  map.addLayer({
+    id: 'route',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            [100.0, 0.0],
+            [101.0, 1.0]
+          ]
+        }
+      }
+    },
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#3887be',
+        'line-width': 5,
+        'line-opacity': 0.75
+      }
+    });
 
   // src: https://docs.mapbox.com/mapbox-gl-js/example/cluster-html/
   // objects for caching and keeping track of HTML marker objects (for performance)
@@ -156,19 +217,61 @@ function donutSegment(start, end, r, r0, color) {
 
 
 // Popups -- Will change to display route instead of popup box
-map.on('click', (event) => {
-  const features = map.queryRenderedFeatures(event.point, {
-    layers: ['trips']
-  });
-  if (!features.length) {
-    return;
+map.on('click', 'trips', async (e) => {
+  // const features = map.queryRenderedFeatures(event.point, {
+  //   layers: ['trips']
+  // });
+  // if (!features.length) {
+  //   return;
+  // }
+  const feature = e.features[0];
+  const properties = feature.properties
+
+  var start;
+  var end;
+
+  if (properties.point_type == "pickup") {
+    start = feature.geometry.coordinates.join(",");
+    end = properties.to;
+  } else {
+    start = properties.to;
+    end = feature.geometry.coordinates.join(",");
   }
-  const feature = features[0];
+
+
+  const response = await (await fetch(`/api/directions?start=${start}&end=${end}`)).json()
+  const route = response.routes[0].geometry.coordinates;
+
+  const geojson = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'LineString',
+      coordinates: route
+    }
+  };
+
+
+  map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'none'
+  )
+  console.log(response);
+
+  map.getSource('route').setData(geojson);
+
+
+  // map.setLayoutProperty('clusters-')
+
+
+
+
 
   const popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
     .setHTML(
-      `<p>${JSON.stringify(feature.properties)}</p>`
+      `<p>${JSON.stringify(properties)}</p>`
     )
     .addTo(map);
 });

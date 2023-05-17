@@ -3,6 +3,8 @@ import os
 import csv
 import json
 import app.db.taxi as taxi
+import certifi
+import ssl
 
 
 def download_data():
@@ -12,7 +14,9 @@ def download_data():
         path = f"app/static/data/201{i}.csv"
         if not os.path.isfile(path):
             print(f"{path} not found, downloading...", end=" ", flush=True)
-            urllib.request.urlretrieve(f"https://taxi.ryanl.au/data/201{i}.csv", path)
+            data = urllib.request.urlopen(f"https://taxi.ryanl.au/data/201{i}.csv", context=ssl.create_default_context(cafile=certifi.where())).read()
+            with open(path, mode="wb") as f:
+                f.write(data)
             print("done")
 
 
@@ -38,7 +42,8 @@ def csv2geojson():
                     },
                     "properties": {
                         "point_type": "dropoff",
-                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
+                        "to": f'{row["pickup_longitude"]},{row["pickup_latitude"]}'
                     },
                 }
                 features.append(feature)
@@ -53,7 +58,8 @@ def csv2geojson():
                     },
                     "properties": {
                         "point_type": "pickup",
-                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
+                        "to": f'{row["dropoff_longitude"]},{row["dropoff_latitude"]}'
                     },
                 }
                 features.append(feature)
@@ -117,6 +123,6 @@ def summarize():
     print("summary created in db")
 
 download_data()
-# csv2geojson()
+csv2geojson()
 load_db()
 summarize()
