@@ -42,7 +42,8 @@ def csv2geojson():
                     },
                     "properties": {
                         "point_type": "dropoff",
-                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
+                        "to": f'{row["pickup_longitude"]},{row["pickup_latitude"]}'
                     },
                 }
                 features.append(feature)
@@ -57,7 +58,8 @@ def csv2geojson():
                     },
                     "properties": {
                         "point_type": "pickup",
-                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
+                        "to": f'{row["dropoff_longitude"]},{row["dropoff_latitude"]}'
                     },
                 }
                 features.append(feature)
