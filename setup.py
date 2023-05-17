@@ -100,13 +100,9 @@ def load_db():
             taxi.add_new_trips(trips)
             print("done")
 
-def convertTime(given):
+def convertTime(given): #yyyy-mm-dd hh:mm:ss
     formatted = ""
-    for char in given[0:11]:
-        if char == "/":
-            formatted += "-"
-        else:
-            formatted += char
+    formatted += given[6:10] + "-" + given[0:2] + "-" + given[3:5] + " "
     if  given[-2:] == "PM":
         hr = int(given[11:13])
         if hr != 12:
@@ -116,6 +112,11 @@ def convertTime(given):
         formatted += given[11:19]
     return formatted
 
+def summarize():
+    taxi.update_summary()
+    print("summary created in db")
+
 download_data()
-csv2geojson()
+# csv2geojson()
 load_db()
+summarize()
