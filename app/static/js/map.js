@@ -41,6 +41,26 @@ const map = new mapboxgl.Map({
 
 let step = 0;
 
+
+  // technique based on https://jsfiddle.net/2mws8y3q/
+  // an array of valid line-dasharray values, specifying the lengths of the alternating dashes and gaps that form the dash pattern
+  const dashArraySequence = [
+    [0, 4, 3],
+    [0.5, 4, 2.5],
+    [1, 4, 2],
+    [1.5, 4, 1.5],
+    [2, 4, 1],
+    [2.5, 4, 0.5],
+    [3, 4, 0],
+    [0, 0.5, 3, 3.5],
+    [0, 1, 3, 3],
+    [0, 1.5, 3, 2.5],
+    [0, 2, 3, 2],
+    [0, 2.5, 3, 1.5],
+    [0, 3, 3, 1],
+    [0, 3.5, 3, 0.5]
+  ];
+
 function animateDashArray(timestamp) {
   // Update line-dasharray using the next value in dashArraySequence. The
   // divisor in the expression `timestamp / 50` controls the animation speed.
@@ -50,7 +70,7 @@ function animateDashArray(timestamp) {
 
   if (newStep !== step) {
     map.setPaintProperty(
-      'line-dashed',
+      'route-dashed',
       'line-dasharray',
       dashArraySequence[step]
     );
@@ -162,25 +182,6 @@ map.on('load', () => {
     });
 
 
-
-  // technique based on https://jsfiddle.net/2mws8y3q/
-  // an array of valid line-dasharray values, specifying the lengths of the alternating dashes and gaps that form the dash pattern
-  const dashArraySequence = [
-    [0, 4, 3],
-    [0.5, 4, 2.5],
-    [1, 4, 2],
-    [1.5, 4, 1.5],
-    [2, 4, 1],
-    [2.5, 4, 0.5],
-    [3, 4, 0],
-    [0, 0.5, 3, 3.5],
-    [0, 1, 3, 3],
-    [0, 1.5, 3, 2.5],
-    [0, 2, 3, 2],
-    [0, 2.5, 3, 1.5],
-    [0, 3, 3, 1],
-    [0, 3.5, 3, 0.5]
-  ];
 
 
 
