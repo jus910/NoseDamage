@@ -5,8 +5,8 @@ from flask import session, redirect, url_for, flash, jsonify
 import requests
 import os
 
-# with open("app/keys/mapbox_directions.txt") as f:
-#     mapbox_token = f.read().strip()
+with open("app/keys/mapbox_directions.txt") as f:
+    mapbox_token = f.read().strip()
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12).hex()
