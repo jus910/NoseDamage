@@ -29,36 +29,38 @@ def csv2geojson():
     for i in range(5):
         path = f"app/static/data/201{i}.csv"
 
-    with open(path) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                        row["dropoff_longitude"], row["dropoff_latitude"]
-                    ],
-                },
-                "properties": {
-                    "point_type": "dropoff"
-                },
-            }
-            features.append(feature)
+        with open(path) as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                feature = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            row["dropoff_longitude"], row["dropoff_latitude"]
+                        ],
+                    },
+                    "properties": {
+                        "point_type": "dropoff",
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                    },
+                }
+                features.append(feature)
 
-            feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [
-                        row["pickup_longitude"], row["pickup_latitude"]
-                    ],
-                },
-                "properties": {
-                    "point_type": "pickup"
-                },
-            }
-            features.append(feature)
+                feature = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            row["pickup_longitude"], row["pickup_latitude"]
+                        ],
+                    },
+                    "properties": {
+                        "point_type": "pickup",
+                        "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0]
+                    },
+                }
+                features.append(feature)
 
 
     geojson["features"] = features

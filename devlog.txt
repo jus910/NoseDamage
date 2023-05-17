@@ -48,3 +48,7 @@ DanielH -- 5/12/2023 1:30
   Created a route in flask to allow javascript to send data to flask for year selection 
 ==============================================================
 
+DanielH -- 5/15/2023 1:30
+--------------------------------------------------------------
+  Added sliders and buttons for the map 
+==============================================================
