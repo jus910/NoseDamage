@@ -24,7 +24,7 @@ def update_summary():
     for y in range(0, 5):
         year = int(f'201{y}')
         avg = (query_db(f"SELECT AVG(distance) FROM trips WHERE STRFTIME('%Y', pickup_time) = '{year}'"))[0]
-        print(avg)
+        # print(avg)
         query_db("INSERT INTO summary VALUES (?, ?)", (year, avg))
 
     return query_db("SELECT * FROM summary LIMIT 20")
