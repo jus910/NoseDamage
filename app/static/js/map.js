@@ -295,7 +295,7 @@ map.on('click', 'trips', async (e) => {
   // }
   const feature = e.features[0];
   const properties = feature.properties
-
+  console.log("SSSSS " + properties.id);
   var start;
   var end;
 

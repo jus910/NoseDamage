@@ -23,7 +23,7 @@ def download_data():
 def csv2geojson():
     print("generating app/static/data/trips.geojson...", end=" ", flush=True)
     geojson = {"type": "FeatureCollection", "features": []}
-
+    identification = 0
     features = []
 
     for i in range(5):
@@ -43,7 +43,8 @@ def csv2geojson():
                     "properties": {
                         "point_type": "dropoff",
                         "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
-                        "to": f'{row["pickup_longitude"]},{row["pickup_latitude"]}'
+                        "to": f'{row["pickup_longitude"]},{row["pickup_latitude"]}',
+                        "id": identification,
                     },
                 }
                 features.append(feature)
@@ -59,11 +60,12 @@ def csv2geojson():
                     "properties": {
                         "point_type": "pickup",
                         "year": row["tpep_pickup_datetime"].split("/")[2].split(" ")[0],
-                        "to": f'{row["dropoff_longitude"]},{row["dropoff_latitude"]}'
+                        "to": f'{row["dropoff_longitude"]},{row["dropoff_latitude"]}',
+                        "id": identification,
                     },
                 }
                 features.append(feature)
-
+                identification+=1
 
     geojson["features"] = features
 
@@ -75,7 +77,7 @@ def csv2geojson():
 
 def load_db():
     taxi.create_trips_table()
-
+    identification = 0
     num_trips = taxi.get_number_of_trips()[0]
 
     if num_trips == 0:
@@ -100,9 +102,10 @@ def load_db():
                         row["fare_amount"],
                         row["tip_amount"],
                         row["total_amount"],
+                        identification,
                     )
                     trips.append(trip)
-
+                    identification+=1
             taxi.add_new_trips(trips)
             print("done")
 
