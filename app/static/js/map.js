@@ -1,3 +1,4 @@
+import sqlite3 from 'sqlite3';
 const colors = ['#00ff00', '#ff0000'];
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
@@ -6,8 +7,8 @@ var select = document.getElementById("select"); // select button to apply filter
 var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
 var frame;
-sliderText.innerHTML = slider.value;
 
+const db = new sqlite3.Database('../../db/db.db');
 pickup.onclick = () =>{
   pickupValue = pickup.checked
   console.log(pickupValue)
@@ -16,10 +17,6 @@ pickup.onclick = () =>{
   dropoffValue = dropoff.checked
   console.log(dropoffValue)
 }
-slider.oninput = () =>{
-  sliderText.innerText = slider.value
-}
-
 reset.addEventListener("click", ()=>{
   cancelAnimationFrame(frame);
   map.setLayoutProperty(
