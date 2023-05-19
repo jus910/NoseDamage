@@ -12,13 +12,27 @@
     SUMMARY
   </h1>
 
-  <h2>
-    Average Trip Distance by Year
-  </h2>
   <div>
-    <canvas id="distance_chart"></canvas>
-    <text id="distance_x">{{avg_distance_x}}</text>
-    <text id="distance_y">{{avg_distance_y}}</text>
+    <h2>
+      Average Trip Distance by Year
+    </h2>
+    <canvas id="distance_chart_yr"></canvas>
+    <text id="distance_x1">{{years}}</text>
+    <text id="distance_y1">{{avg_d_yr}}</text>
+  </div>
+
+  <div>
+    <h2>
+      Average Trip Distance by Month 
+    </h2>
+    <canvas id="distance_chart_m"></canvas>
+    <text id="distance_x2">{{months}}</text>
+    <text id="distance_y2">{{avg_d_m}}</text>
+  </div>
+
+  <div>
+    <h2>
+    </h2>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>

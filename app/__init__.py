@@ -40,12 +40,15 @@ def map():
 
 @app.route("/stats")
 def stats():
-    avg_distance_data = stat.avg_distance_values()
-    x = [n[0] for n in avg_distance_data]
-    y = [n[1] for n in avg_distance_data]
+    avg_distance_data = stat.avg_distance_yr()
+    x1 = [n[0] for n in avg_distance_data]
+    y1 = [n[1] for n in avg_distance_data]
+    avg_distance_data = stat.avg_distance_m()
+    x2 = [n[0] for n in avg_distance_data]  
+    y2 = [n[1] for n in avg_distance_data]
     return render_template('stats.html', 
-        avg_distance_x = x, 
-        avg_distance_y = y)
+        years = x1, avg_d_yr = y1,
+        months = x2, avg_d_m = y2,)
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():

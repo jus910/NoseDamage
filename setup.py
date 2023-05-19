@@ -3,7 +3,7 @@ import os
 import csv
 import json
 import app.db.taxi as taxi
-import app.db.stats as stats
+import app.db.stats as stat
 import certifi
 import ssl
 
@@ -18,7 +18,7 @@ def download_data():
             data = urllib.request.urlopen(f"https://taxi.ryanl.au/data/201{i}.csv", context=ssl.create_default_context(cafile=certifi.where())).read()
             with open(path, mode="wb") as f:
                 f.write(data)
-            print("done")
+            print("done.")
 
 
 def csv2geojson():
@@ -71,7 +71,7 @@ def csv2geojson():
     with open("app/static/data/trips.geojson", "w") as f:
         f.write(json.dumps(geojson))
 
-    print("done")
+    print("done.")
 
 
 def load_db():
@@ -105,7 +105,7 @@ def load_db():
                     trips.append(trip)
 
             taxi.add_new_trips(trips)
-            print("done")
+            print("done.")
 
 def convertTime(given): #yyyy-mm-dd hh:mm:ss
     formatted = ""
@@ -120,7 +120,8 @@ def convertTime(given): #yyyy-mm-dd hh:mm:ss
     return formatted
 
 def summarize():
-    stats.update_summary()
+    stat.create_summary_year()
+    stat.create_summary_month()
     print("summaries created in db")
 
 download_data()
