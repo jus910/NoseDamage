@@ -1,20 +1,56 @@
-var addItem = function(text) {
-  var list = document.getElementById("thelist");
-  var newitem = document.createElement("li"); // creates an element with the property li, so it continues numbering the list
-  newitem.innerHTML = text; 
-  list.appendChild(newitem); 
+var removeHTML = function(id) { 
+  var element = document.getElementById(id);
+  element.innerHTML = "";
 };
 
-// Adding Text
-var addText = function(id, text) {
-  var list = document.getElementById(id);
-  var newitem = document.createElement("text");
-  newitem.innerHTML = text; 
-  list.appendChild(newitem); 
+// Chart
+
+var create_bar = function(canvas_id, x_id, y_id) {
+  const ctx = document.getElementById(canvas_id);
+  var x_values = document.getElementById(x_id).innerHTML;
+  var y_values = document.getElementById(y_id).innerHTML;
+
+  x_values = JSON.parse(x_values)
+  y_values = JSON.parse(y_values)
+  // console.log(x_values)  
+  // console.log(y_values)
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {  
+      labels: x_values,
+      datasets: [{
+        label: 'Average Trip Distance ',
+        data: y_values,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Year"
+          }
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Distance (mi)"
+          }
+        }
+      }
+    }
+  });
+
+  console.log("Bar Graph Created, deleting text...");
+  removeHTML(x_id);
+  removeHTML(y_id);
+  console.log("done.");
+
 };
 
-var removeItem = function(n) { // standard index convention starting at 0
-  var listitems = document.getElementsByTagName('li');
-  listitems[n].remove();
-};
+
+create_bar("distance_chart", "distance_x", "distance_y");
 

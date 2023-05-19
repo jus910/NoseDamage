@@ -3,6 +3,7 @@ import os
 import csv
 import json
 import app.db.taxi as taxi
+import app.db.stats as stats
 import certifi
 import ssl
 
@@ -119,8 +120,8 @@ def convertTime(given): #yyyy-mm-dd hh:mm:ss
     return formatted
 
 def summarize():
-    taxi.update_summary()
-    print("summary created in db")
+    stats.update_summary()
+    print("summaries created in db")
 
 download_data()
 csv2geojson()

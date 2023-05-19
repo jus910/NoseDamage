@@ -13,12 +13,16 @@
   </h1>
 
   <h2>
-    Average Trip Distance
+    Average Trip Distance by Year
   </h2>
-  <img src='data:image/png;base64,{{graphData}}'/>
-  <table id = 'avgTrip'>
-  </table>
+  <div>
+    <canvas id="distance_chart"></canvas>
+    <text id="distance_x">{{avg_distance_x}}</text>
+    <text id="distance_y">{{avg_distance_y}}</text>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+  
 
   <script src="../static/js/stats.js"></script>
-
 </html>

@@ -4,7 +4,10 @@ from flask import request           #facilitate form submission
 from flask import session, redirect, url_for, flash, jsonify
 import requests
 import os
-from stats import avg_distance_graph
+try:
+    import app.db.stats as stat
+except:
+    import db.stats as stat
 
 with open("app/keys/mapbox_directions.txt") as f:
     mapbox_token = f.read().strip()
@@ -37,8 +40,12 @@ def map():
 
 @app.route("/stats")
 def stats():
-    data = avg_distance_graph()
-    return render_template('stats.html', graphData = data)
+    avg_distance_data = stat.avg_distance_values()
+    x = [n[0] for n in avg_distance_data]
+    y = [n[1] for n in avg_distance_data]
+    return render_template('stats.html', 
+        avg_distance_x = x, 
+        avg_distance_y = y)
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():
