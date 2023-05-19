@@ -5,6 +5,8 @@ var reset = document.getElementById("reset"); //reset button
 var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
 var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
+var frame;
+sliderText.innerHTML = slider.value;
 
 pickup.onclick = () =>{
   pickupValue = pickup.checked
@@ -14,6 +16,28 @@ pickup.onclick = () =>{
   dropoffValue = dropoff.checked
   console.log(dropoffValue)
 }
+slider.oninput = () =>{
+  sliderText.innerText = slider.value
+}
+
+reset.addEventListener("click", ()=>{
+  cancelAnimationFrame(frame);
+  map.setLayoutProperty(
+    'route',
+    'visibility', 
+    'none'
+  )
+  map.setLayoutProperty(
+    'route-dashed',
+    'visibility', 
+    'none'
+  )
+  map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'visible'
+  )
+})
 
 
 const map = new mapboxgl.Map({
@@ -49,6 +73,7 @@ let step = 0;
   ];
 
 function animateDashArray(timestamp) {
+  console.log("animating");
   // Update line-dasharray using the next value in dashArraySequence. The
   // divisor in the expression `timestamp / 50` controls the animation speed.
   const newStep = parseInt(
@@ -65,7 +90,7 @@ function animateDashArray(timestamp) {
   }
 
   // Request the next frame of the animation.
-  requestAnimationFrame(animateDashArray);
+  frame = requestAnimationFrame(animateDashArray);
 }
 
 
@@ -330,6 +355,16 @@ map.on('click', 'trips', async (e) => {
 
   map.getSource('route').setData(geojson);
   map.getSource('route-dashed').setData(geojson);
+  map.setLayoutProperty(
+    'route',
+    'visibility', 
+    'visible'
+  )
+  map.setLayoutProperty(
+    'route-dashed',
+    'visibility', 
+    'visible'
+  )
   step = 0;
 
   animateDashArray(0);
