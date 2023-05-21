@@ -120,8 +120,7 @@ def convertTime(given): #yyyy-mm-dd hh:mm:ss
     return formatted
 
 def summarize():
-    stat.create_summary_year()
-    stat.create_summary_month()
+    stat.create_summary()
     print("summaries created in db")
 
 download_data()
