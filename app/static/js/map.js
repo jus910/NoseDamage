@@ -326,7 +326,6 @@ map.on('click', 'trips', async (e) => {
   // }
   const feature = e.features[0];
   const properties = feature.properties
-  console.log("SSSSS " + properties.id);
   var start;
   var end;
   fetch('/info/' + properties.id)
@@ -335,6 +334,11 @@ map.on('click', 'trips', async (e) => {
   }).then((res)=>{
     console.log(res)
     var list = document.getElementById('informaticonica');
+    if (list.firstChild){
+      while (list.firstChild){
+        list.removeChild(list.firstChild);
+      }
+    }
     var passengers = document.createElement('li');
     var distance = document.createElement('li');
     var total = document.createElement('li');
