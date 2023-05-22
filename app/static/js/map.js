@@ -56,7 +56,11 @@ const map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/dark-v11',
   center: [-74.0060, 40.7128],
   zoom: 10,
-  accessToken: "pk.eyJ1IjoicnlhbmxhdSIsImEiOiJjbGNkaTl6MjAxN2VxM3BwNHpseXYxN3BtIn0.NSi2H99_zl3PfrdhjGp6AA"
+  accessToken: "pk.eyJ1IjoicnlhbmxhdSIsImEiOiJjbGNkaTl6MjAxN2VxM3BwNHpseXYxN3BtIn0.NSi2H99_zl3PfrdhjGp6AA",
+  maxBounds: [
+    [-74.0060 - 0.4, 40.7128 - 0.4],
+    [-74.0060 + 0.4, 40.7128 + 0.4],
+  ]
 });
 
 
