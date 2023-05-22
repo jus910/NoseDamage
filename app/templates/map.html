@@ -37,17 +37,42 @@
         </div>
     </nav>
     <div class="rounded" style="width: 300px; position: absolute; top: 12vh; left: 18px; background-color: rgba(0, 0, 0, 0.356); z-index: 9999;">
-      <div class="card-header container-fluid" style="height: 200px;">
-        <div class="row justify-content-between">
+      <div class="card-header container-fluid" style="height: 310px;">
+        <div class="row justify-content-between" style="padding-left: 5px;">
           <div class="custom-control custom-switch text-muted">
             <input type="checkbox" class="custom-control-input" id="toggle" checked>
             <label class="custom-control-label" for="toggle">Toggle Data</label>
           </div>
           <button id="reset" class="btn btn-outline-danger">Reset</button>
         </div>
-        <div class="row text-white">
-          <ul id = 'informaticonica'>
+        <div id = "sloth" style="position: absolute; z-index: 10000; opacity: 0.5;">
+          <a style="font-size: 0.6rem; color: aliceblue; position: relative; z-index: 10001;" href="https://www.freepik.com/free-vector/cute-sloth-sleeping-pillow-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated_26259303.htm#query=sleeping%20animal&position=5&from_view=keyword&track=ais">Image by catalyststuff</a>
+          <img class="figure-img" style="position: absolute; z-index: 10000; height: 250px; left:0px" src="../static/assets/5100_4_10.png">
+          <div class="text-center text-muted" style="position: relative; bottom: 0; height: 300px; padding-top: 180px; padding-left: 70px;"> Do something...</div>
+        </div>
+          <div id="start" class="text-white">
+        </div>
+        <div class="row text-white" style="padding-left: 20px; padding-top: 10px; padding-bottom: 10px;">
+          <ul id='informaticonica' class="list-group" style="opacity: 0; width: 100%; border-left: 3px dotted white;">
+            <li id="date" class="list-group-item d-flex justify-content-between align-items-center" style=" background-color: rgba(0, 0, 0, 0.356);">
+              Date
+              <span id="date_in" class="badge badge-primary badge-pill"></span>
+            </li>
+            <li id="passenger" class="list-group-item d-flex justify-content-between align-items-center" style=" background-color: rgba(0, 0, 0, 0.356);">
+              Passengers
+              <span id="passenger_in" class="badge badge-primary badge-pill"></span>
+            </li>
+            <li id="distance" class="list-group-item d-flex justify-content-between align-items-center" style=" background-color: rgba(0, 0, 0, 0.356);">
+              Distance travelled
+              <span id="distance_in" class="badge badge-primary badge-pill"></span>
+            </li>
+            <li id="cost" class="list-group-item d-flex justify-content-between align-items-center" style=" background-color: rgba(0, 0, 0, 0.356);">
+              Total Cost
+              <span id="cost_in" class="badge badge-primary badge-pill"></span>
+            </li>
           </ul>
+          <div id="end" class="text-white" style="padding-top: 8px;">
+          </div>
         </div>
         <!-- <div>
           <button id="toggleOff"> toggle Off </button>
@@ -57,7 +82,7 @@
       <div id = "accordion">
         <div class="card" style="width: 100%; background-color: rgba(0, 0, 0, 0.356);">
           <div class="card-header" id="headingOne">
-            <button class="btn collapsed text-muted" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="width: 100%;">
+            <button class="btn collapsed text-muted" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="width: 100%; position: relative; z-index: 10002;">
               Filters
             </button>
           </div>

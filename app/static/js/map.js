@@ -1,7 +1,15 @@
 const colors = ['#00ff00', '#ff0000'];
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
+var list = document.getElementById('informaticonica');
+var passengers = document.getElementById('passenger_in');
+var distance = document.getElementById('distance_in');
+var total = document.getElementById('cost_in');
+var date = document.getElementById('date_in');
+var pcoor = document.getElementById('start');
+var dcoor = document.getElementById('end');
 var reset = document.getElementById("reset"); //reset button
+var sloth = document.getElementById("sloth");
 var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
 
 var ten = document.getElementById("2010");
@@ -24,10 +32,10 @@ pickup.onclick = () =>{
 }
 reset.addEventListener("click", ()=>{
   cancelAnimationFrame(frame);
-  var list = document.getElementById('informaticonica');
-  while (list.firstChild) {
-    list.removeChild(list.firstChild);
-  }
+  list.style.opacity = '0';
+  pcoor.style.opacity = '0';
+  dcoor.style.opacity = '0';
+  sloth.style.opacity = '0.5';
   map.setLayoutProperty(
     'route',
     'visibility', 
@@ -315,6 +323,27 @@ function donutSegment(start, end, r, r0, color) {
 }
 
 
+var get_info = (a)=>{
+  fetch('/info/' + a)
+    .then((response)=>{
+    return response.json()
+  }).then((res)=>{
+    console.log(res);
+    pcoor.innerHTML = 'From: ' + res.pickup_lat + ", " + res.pickup_lon;
+    dcoor.innerHTML = 'To: ' + res.dropoff_lat + ", " + res.dropoff_lon;
+    passengers.innerHTML = res.passenger_count;
+    distance.innerHTML = res.distance;
+    total.innerHTML = res.total;
+    date.innerHTML = res.pickup_time.split(" ")[0];
+    // list.append(passengers,distance,total);
+    sloth.style.opacity = '0';
+    list.style.opacity = '1';
+    pcoor.style.opacity = '1';
+    dcoor.style.opacity = '1';
+  }).catch((error)=>{
+    console.log(error);
+  });
+}
 
 // Popups -- Will change to display route instead of popup box
 map.on('click', 'trips', async (e) => {
@@ -328,27 +357,7 @@ map.on('click', 'trips', async (e) => {
   const properties = feature.properties
   var start;
   var end;
-  fetch('/info/' + properties.id)
-    .then((response)=>{
-    return response.json()
-  }).then((res)=>{
-    console.log(res)
-    var list = document.getElementById('informaticonica');
-    if (list.firstChild){
-      while (list.firstChild){
-        list.removeChild(list.firstChild);
-      }
-    }
-    var passengers = document.createElement('li');
-    var distance = document.createElement('li');
-    var total = document.createElement('li');
-    passengers.innerHTML = 'Passenger Count: ' + res.passenger_count;
-    distance.innerHTML = 'Distance Travelled: ' + res.distance;
-    total.innerHTML = 'Total Cost: ' + res.total;
-    list.append(passengers,distance,total);
-  }).catch((error)=>{
-    console.log(error)
-  });
+  get_info(properties.id);
   if (properties.point_type == "pickup") {
     start = feature.geometry.coordinates.join(",");
     end = properties.to;
