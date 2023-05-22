@@ -47,13 +47,11 @@ DanielH -- 5/12/2023 1:30
 --------------------------------------------------------------
   Created a route in flask to allow javascript to send data to flask for year selection 
 ==============================================================
-<<<<<<< HEAD
 
 DanielH -- 5/15/2023 1:30
 --------------------------------------------------------------
   Added sliders and buttons for the map 
 ==============================================================
-=======
 Tour Summary -- 5/18/2023 9:30
 --------------------------------------------------------------
   Most of the groups were creating websites with interactive maps, and some used the leaflet api, google maps api.
@@ -64,4 +62,7 @@ FangC -- 5/19/2023 0:39
 --------------------------------------------------------------
   Stats page in place -- Easily add new charts and data. Backend db retrieval working.
 ==============================================================
->>>>>>> main
+DanielH -- 5/22/2023 1:04
+--------------------------------------------------------------
+  Added ids to each route, display data when route clicked via get request in flask  
+==============================================================

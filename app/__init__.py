@@ -64,6 +64,29 @@ def data():
     else:
         return 'yes'
     
+@app.route("/info/<data>", methods=['GET','POST'])
+def id(data):
+    if (request.method == 'GET'):
+        information = stat.investigation(data)
+        print("YAYA")
+        print(information)
+        message = {'status':'200',
+                   'pickup_time': information[0], 
+                   'dropoff_time': information[1], 
+                   'passenger_count': information[2], 
+                   'distance': information[3],
+                    'pickup_lon': information[4],
+                     'pickup_lat': information[5],
+                      'dropoff_lon': information[6],
+                       'dropoff_lat': information[7],
+                        'fare': information[8], 
+                        'tip': information[9], 
+                        'total': information[10],
+        }
+        return jsonify(message)
+    else:
+        return 'yes'
+
 if __name__ == "__main__":  # true if this file NOT imported
     app.debug = True        # enable auto-reload upon code change
     app.run()

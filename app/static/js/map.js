@@ -1,14 +1,19 @@
-import sqlite3 from 'sqlite3';
 const colors = ['#00ff00', '#ff0000'];
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
 var reset = document.getElementById("reset"); //reset button
 var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
+
+var ten = document.getElementById("2010");
+var eleven = document.getElementById("2011");
+var twelve = document.getElementById("2012");
+var thirteen = document.getElementById("2013");
+var fourteen = document.getElementById("2014"); //years for filter
+
 var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
 var frame;
 
-const db = new sqlite3.Database('../../db/db.db');
 pickup.onclick = () =>{
   pickupValue = pickup.checked
   console.log(pickupValue)
@@ -19,6 +24,10 @@ pickup.onclick = () =>{
 }
 reset.addEventListener("click", ()=>{
   cancelAnimationFrame(frame);
+  var list = document.getElementById('informaticonica');
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
   map.setLayoutProperty(
     'route',
     'visibility', 
@@ -70,7 +79,7 @@ let step = 0;
   ];
 
 function animateDashArray(timestamp) {
-  console.log("animating");
+  // console.log("animating");
   // Update line-dasharray using the next value in dashArraySequence. The
   // divisor in the expression `timestamp / 50` controls the animation speed.
   const newStep = parseInt(
@@ -320,7 +329,22 @@ map.on('click', 'trips', async (e) => {
   console.log("SSSSS " + properties.id);
   var start;
   var end;
-
+  fetch('/info/' + properties.id)
+    .then((response)=>{
+    return response.json()
+  }).then((res)=>{
+    console.log(res)
+    var list = document.getElementById('informaticonica');
+    var passengers = document.createElement('li');
+    var distance = document.createElement('li');
+    var total = document.createElement('li');
+    passengers.innerHTML = 'Passenger Count: ' + res.passenger_count;
+    distance.innerHTML = 'Distance Travelled: ' + res.distance;
+    total.innerHTML = 'Total Cost: ' + res.total;
+    list.append(passengers,distance,total);
+  }).catch((error)=>{
+    console.log(error)
+  });
   if (properties.point_type == "pickup") {
     start = feature.geometry.coordinates.join(",");
     end = properties.to;
@@ -380,19 +404,32 @@ map.on('click', 'trips', async (e) => {
     .addTo(map);
 });
 
-offButton = document.getElementById("toggleOff");
-offButton.addEventListener("click", () => {
-    map.setLayoutProperty(
-      'trips',
-      'visibility', 
-      'none'
-    )
-});
-onButton = document.getElementById("toggleOn");
-onButton.addEventListener("click", () => {
-  map.setLayoutProperty(
+// offButton = document.getElementById("toggleOff");
+// offButton.addEventListener("click", () => {
+//     map.setLayoutProperty(
+//       'trips',
+//       'visibility', 
+//       'none'
+//     )
+// });
+// onButton = document.getElementById("toggleOn");
+// onButton.addEventListener("click", () => {
+//   map.setLayoutProperty(
+//     'trips',
+//     'visibility', 
+//     'visible'
+//   )
+// });
+
+var toggle = document.getElementById("toggle");
+toggle.addEventListener("click", () => {
+  if (toggle.checked){map.setLayoutProperty(
     'trips',
     'visibility', 
     'visible'
-  )
+  )}else{map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'none'
+  )}
 });

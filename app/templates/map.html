@@ -28,23 +28,31 @@
               <a class="nav-link text-white" href="#">Map</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Stats</a>
+              <a class="nav-link text-white" href="/stats">Stats</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link text-white" href="/about">About</a>
-            </li>
+            </li> -->
           </ul>
         </div>
     </nav>
     <div class="rounded" style="width: 300px; position: absolute; top: 12vh; left: 18px; background-color: rgba(0, 0, 0, 0.356); z-index: 9999;">
       <div class="card-header container-fluid" style="height: 200px;">
-        <div class="row justify-content-end">
+        <div class="row justify-content-between">
+          <div class="custom-control custom-switch text-muted">
+            <input type="checkbox" class="custom-control-input" id="toggle" checked>
+            <label class="custom-control-label" for="toggle">Toggle Data</label>
+          </div>
           <button id="reset" class="btn btn-outline-danger">Reset</button>
         </div>
-        <div>
+        <div class="row text-white">
+          <ul id = 'informaticonica'>
+          </ul>
+        </div>
+        <!-- <div>
           <button id="toggleOff"> toggle Off </button>
           <button id="toggleOn"> toggle On </button>
-        </div>
+        </div> -->
       </div>
       <div id = "accordion">
         <div class="card" style="width: 100%; background-color: rgba(0, 0, 0, 0.356);">
@@ -73,7 +81,48 @@
                   <input id="slider" class="form-control-range" name="yearSlider" type="range" min="2010" max="2014" value={{year}} style="width: 65%;"></input>
                 </form>
               </div> -->
-              <div style="padding-top: 10px;">
+              <div class="container" style="padding-top: 10px;">
+                <div class="row">
+                  <div class="col">
+                    Years:
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="2010">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        2010
+                      </label>
+                    </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="2011">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          2011
+                        </label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="2012">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        2012
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="2013">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        2013
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="2014">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        2014
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+              <div style="padding-top: 15px;">
                 <button id="select" class="btn btn-primary  btn-sm">Select</button>
               </div>
             </div>
