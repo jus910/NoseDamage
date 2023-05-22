@@ -433,3 +433,39 @@ toggle.addEventListener("click", () => {
     'none'
   )}
 });
+
+const form = document.getElementById("filters");
+
+function setFilters(e) {
+  e.preventDefault();
+  const formData = new FormData(form)
+  console.log(formData.keys());
+
+  const years = []
+  const filters = []
+
+  for (const filter of formData.keys()) {
+    if (filter == "pickup" || filter == "dropoff") {
+      filters.push(filter)
+    }
+    else {
+      years.push(filter)
+    }
+  }
+
+  console.log(filters);
+  console.log(years);
+
+
+
+  map.setFilter("trip-data", ["all", filters])
+
+
+}
+
+form.addEventListener("submit", setFilters)
+
+
+
+
+
