@@ -396,12 +396,12 @@ map.on('click', 'trips', async (e) => {
 
 
 
-  const popup = new mapboxgl.Popup({ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML(
-      `<p>${JSON.stringify(properties)}</p>`
-    )
-    .addTo(map);
+  // const popup = new mapboxgl.Popup({ offset: [0, -15] })
+  //   .setLngLat(feature.geometry.coordinates)
+  //   .setHTML(
+  //     `<p>${JSON.stringify(properties)}</p>`
+  //   )
+  //   .addTo(map);
 });
 
 // offButton = document.getElementById("toggleOff");
