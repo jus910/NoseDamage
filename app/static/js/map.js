@@ -27,6 +27,21 @@ var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
 var frame;
 
+var selected;
+function myFunc(vars){
+  console.log(vars);
+  selected = vars;
+  years = [vars];
+  variables = [ten, eleven, twelve, thirteen, fourteen];
+  for (variable in variables){
+    if (variable.getAttribute("name") != vars){
+      variable.checked = false;
+      console.log(variable.checked);
+    }
+  }
+}
+
+
 pickup.onclick = () =>{
   pickupValue = pickup.checked
   console.log(pickupValue)
@@ -516,6 +531,7 @@ function setFilters(e) {
   filters = []
 
   for (const filter of formData.keys()) {
+    console.log("BIUBDIBYB " + filter);
     if (filter == "pickup" || filter == "dropoff") {
       filters.push(filter)
     } else {
