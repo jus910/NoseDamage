@@ -88,10 +88,6 @@ var create_bar = function(canvas_id, x_id, y_id, x_label, y_label, a_label, hex_
   x_values = convertData(x_id);
   y_values = convertData(y_id);
 
-  // Format color strings
-  bg_color = sheer(hex_code);  
-  bdr_color = hex_code;
-  
   // Create Chart
   new Chart(ctx, {
     type: 'bar',
@@ -101,8 +97,8 @@ var create_bar = function(canvas_id, x_id, y_id, x_label, y_label, a_label, hex_
         label: a_label,
         data: y_values,
         borderWidth: 1,
-        backgroundColor: bg_color,
-        borderColor: bdr_color
+        backgroundColor: sheer(hex_code),
+        borderColor: hex_code
       }]
     },
     options: {
@@ -140,10 +136,10 @@ var create_stacked = function(canvas_id, x_id, stack_id, y_id, x_label, y_label,
   const datadict = function(label, data, color = "", color2 = "#FFFFFF") {
     return {"label": label, "data": data, "backgroundColor": color, "borderWidth": 1, "borderColor": color2}
   };
-  for (let m = 0; m < 12; m++) {
+  for (let m = 0; m < stacks.length; m++) {
     bg_color = sheer(hex_codes[m]);
     borderColor = hex_codes[m];
-    data_arr.push(datadict(stacks[m], y_values.slice(5*m, 5*(m+1)), bg_color, borderColor))
+    data_arr.push(datadict(stacks[m], y_values.slice(x_values.length*m, x_values.length*(m+1)), bg_color, borderColor))
   };
   // console.log(data_arr);
   
@@ -180,33 +176,36 @@ var create_stacked = function(canvas_id, x_id, stack_id, y_id, x_label, y_label,
 
 
 // // Donut Chart
-// var create_donut = function(canvas_id, x_id, y_id, a_label, hex_code="#36a2eb") {  
-//   const ctx = document.getElementById(canvas_id);
-//   x_values = convertData(x_id);
-//   y_values = convertData(y_id);
+var create_donut = function(canvas_id, x_id, y_id, a_label, hex_codes=rainbow) {  
+  const ctx = document.getElementById(canvas_id);
+  x_values = convertData(x_id);
+  y_values = convertData(y_id);
 
-//   // Format color strings
-//   bg_color = sheer(hex_code);  
-//   bdr_color = hex_code;
-  
-//   // Create Chart
-//   new Chart(ctx, {
-//     type: 'doughnut',
-//     data: {  
-//       labels: x_values,
-//       datasets: [{
-//         label: a_label,
-//         data: y_values,
-//         // backgroundColor: bg_color,
-//         // borderColor: bdr_color
-//       }]
-//     },
-//     options: {
-//     }
-//   });
+  // Format Color
+  hex_codes = hex_codes.splice(rainbow.length - y_values.length, rainbow.length);
+  bg_colors = [];
+  for(let n = 0; n < y_values.length; n ++) {
+    bg_colors.push(sheer(hex_codes[n]));
+  }
 
-//   console.log("Donut Chart Created for " + canvas_id + ".");
-// };
+  // Create Chart
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {  
+      labels: x_values,
+      datasets: [{
+        label: a_label,
+        data: y_values,
+        backgroundColor: bg_colors,
+        borderColor: hex_codes
+      }]
+    },
+    options: {
+    }
+  });
+
+  console.log("Donut Chart Created for " + canvas_id + ".");
+};
 
 
 ///////////// BUTTONS /////////////
@@ -230,6 +229,7 @@ button_to_yr.addEventListener('click', toggle_to_yr);
 
 ///////////// COMMANDS /////////////
 
+toggle_to_yr();   // default
 create_line("avg_distance_yr", 
   "distance_x1", "distance_y1", 
   "Year", "Distance (mi)", 
@@ -243,4 +243,6 @@ create_line("avg_distance_m",
 create_stacked("total_fare",
   "fare_x", "fare_stack", "fare_y",
   "Year", "Total Fare ($)");
-toggle_to_yr();   // default
+create_donut("total_passenger",
+  "pass_x", "pass_y",
+  "Total Passengers");
