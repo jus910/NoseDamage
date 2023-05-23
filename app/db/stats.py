@@ -30,5 +30,6 @@ def avg_distance_m():
 
 def total_fare_yr():
     return query_db("SELECT year, month, total_fare FROM summary ORDER BY month", all = True)
+
 def investigation(identification):
     return query_db(f"SELECT pickup_time, dropoff_time, passenger_count, distance, pickup_lon, pickup_lat, dropoff_lon, dropoff_lat, fare, tip, total FROM trips WHERE ide = '{identification}'")
