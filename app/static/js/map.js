@@ -4,6 +4,7 @@ let markersOnScreen = {};
 let markers = {};
 
 const colors = ['#ffdf00', '#ac94f4'];
+const form = document.getElementById("filters");
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
 var list = document.getElementById('informaticonica');
@@ -33,11 +34,10 @@ function myFunc(vars){
   console.log(vars);
   selected = vars;
   years = [vars];
-  variables = [ten, eleven, twelve, thirteen, fourteen];
-  for (variable in variables){
-    if (variable.getAttribute("name") != vars){
-      variable.checked = false;
-      console.log(variable.checked);
+  var yearLoop = document.querySelectorAll("input.form-check-input");
+  for (var i = 0; i < yearLoop.length; i++){
+    if (yearLoop[i].getAttribute("name") != vars){
+      yearLoop[i].removeAttribute("checked");
     }
   }
 }
@@ -87,9 +87,15 @@ const map = new mapboxgl.Map({
     [-74.0060 + 0.4, 40.7128 + 0.4],
   ]
 });
-
+var once = true;
 map.on('idle',function(){
-  loader.classList.add("d-none")
+  loader.classList.add("d-none");
+  if (once){
+    years = [selected]
+    filters = ["pickup", "dropoff"];
+    map.setFilter("trips", ["all", ["in", "point_type", ...filters], ["in", "year", ...years]]);
+    once = false;
+  }
    //your code here 
 })
 
@@ -509,7 +515,6 @@ toggle.addEventListener("click", () => {
   )}
 });
 
-const form = document.getElementById("filters");
 
 function setFilters(e) {
   e.preventDefault();
