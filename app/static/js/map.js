@@ -16,6 +16,7 @@ var dcoor = document.getElementById('end');
 var reset = document.getElementById("reset"); //reset button
 var sloth = document.getElementById("sloth");
 var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
+var loader = document.getElementById("loader"); // select button to apply filters, filters variables listed below 
 
 var ten = document.getElementById("2010");
 var eleven = document.getElementById("2011");
@@ -87,7 +88,10 @@ const map = new mapboxgl.Map({
   ]
 });
 
-
+map.on('idle',function(){
+  loader.classList.add("d-none")
+   //your code here 
+})
 
 let step = 0;
 
