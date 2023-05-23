@@ -3,7 +3,7 @@ var filters = ["pickup", "dropoff"]
 let markersOnScreen = {};
 let markers = {};
 
-const colors = ['#00ff00', '#ff0000'];
+const colors = ['#ffdf00', '#ac94f4'];
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
 var list = document.getElementById('informaticonica');
@@ -168,7 +168,8 @@ map.on('load', () => {
         "pickup",
         colors[1],
         '#ccc'
-      ]
+      ],
+      'circle-opacity': 0.5
     }
   });
 
