@@ -15,6 +15,8 @@ with open("app/keys/mapbox_directions.txt") as f:
 app = Flask(__name__)
 app.secret_key = os.urandom(12).hex()
 
+months_str = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
 @app.route("/")
 def home():
     if 'year' not in session:
@@ -40,15 +42,23 @@ def map():
 
 @app.route("/stats")
 def stats():
-    avg_distance_data = stat.avg_distance_yr()
-    x1 = [n[0] for n in avg_distance_data]
-    y1 = [n[1] for n in avg_distance_data]
-    avg_distance_data = stat.avg_distance_m()
-    x2 = [n[0] for n in avg_distance_data]  
-    y2 = [n[1] for n in avg_distance_data]
+    sql_data = stat.avg_distance_yr()
+    x1 = [n[0] for n in sql_data]   # years
+    y1 = [n[1] for n in sql_data]
+
+    sql_data = stat.avg_distance_m()
+    x2 = months_str                 # months
+    y2 = [n[1] for n in sql_data]
+
+    sql_data = stat.total_fare_yr()
+    # x3 = [n[0] for n in sql_data]
+    # stack = [n[1] for n in sql_data]
+    y3 = [n[2] for n in sql_data]
+
     return render_template('stats.html', 
         years = x1, avg_d_yr = y1,
-        months = x2, avg_d_m = y2,)
+        months = x2, avg_d_m = y2,
+        fare_stack = months_str, total_fare_myr = y3)
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():
