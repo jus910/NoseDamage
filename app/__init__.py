@@ -54,15 +54,20 @@ def stats():
     x2 = months_str                 # months
     y2 = [n[1] for n in sql_data]
 
-    sql_data = stat.total_fare_yr()
+    sql_data = stat.total_fare_myr()
     # x3 = [n[0] for n in sql_data]
     # stack = [n[1] for n in sql_data]
     y3 = [n[2] for n in sql_data]
 
+    sql_data = stat.total_pass_yr()
+    # x4 = [n[0] for n in sql_data]
+    y4 = [n[1] for n in sql_data]
+
     return render_template('stats.html', 
         years = x1, avg_d_yr = y1,
         months = x2, avg_d_m = y2,
-        fare_stack = months_str, total_fare_myr = y3)
+        fare_stack = months_str, total_fare_myr = y3,
+        total_pass_yr = y4)
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():
@@ -80,18 +85,36 @@ def id(data):
         information = stat.investigation(data)
         print("YAYA")
         print(information)
-        message = {'status':'200',
-                   'pickup_time': information[0], 
-                   'dropoff_time': information[1], 
-                   'passenger_count': information[2], 
-                   'distance': information[3],
-                    'pickup_lon': information[4],
-                     'pickup_lat': information[5],
-                      'dropoff_lon': information[6],
-                       'dropoff_lat': information[7],
-                        'fare': information[8], 
-                        'tip': information[9], 
-                        'total': information[10],
+
+        pickup = requests.get(f"https://api.mapbox.com/geocoding/v5/mapbox.places/{information[4]},{information[5]}.json?types=address&access_token={mapbox_token}")
+        dropoff = requests.get(f"https://api.mapbox.com/geocoding/v5/mapbox.places/{information[6]},{information[7]}.json?types=address&access_token={mapbox_token}")
+        print(pickup.text)
+
+        try:
+            pickup = pickup.json().get("features")[0].get("place_name").split(",")[0]
+            dropoff = dropoff.json().get("features")[0].get("place_name").split(",")[0]
+        except:
+            pickup = f"{information[4]}, {information[5]}"
+            dropoff = f"{information[6]}, {information[7]}"
+
+        
+
+
+        message = {
+            'status':'200',
+            'pickup_time': information[0], 
+            'dropoff_time': information[1], 
+            'passenger_count': information[2], 
+            'distance': f"{information[3]} mi.",
+            'pickup_lon': information[4],
+            'pickup_lat': information[5],
+            'dropoff_lon': information[6],
+            'dropoff_lat': information[7],
+            'fare': information[8], 
+            'tip': information[9], 
+            'total': f"${information[10]}",
+            'pickup': pickup,
+            'dropoff': dropoff,
         }
         return jsonify(message)
     else:

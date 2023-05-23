@@ -3,7 +3,7 @@ var filters = ["pickup", "dropoff"]
 let markersOnScreen = {};
 let markers = {};
 
-const colors = ['#00ff00', '#ff0000'];
+const colors = ['#ffdf00', '#ac94f4'];
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
 var list = document.getElementById('informaticonica');
@@ -71,6 +71,7 @@ reset.addEventListener("click", ()=>{
     'visibility', 
     'visible'
   )
+  reset.classList.add("d-none")
 })
 
 
@@ -182,7 +183,8 @@ map.on('load', () => {
         "pickup",
         colors[1],
         '#ccc'
-      ]
+      ],
+      'circle-opacity': 0.5
     }
   });
 
@@ -385,8 +387,8 @@ var get_info = (a)=>{
     return response.json()
   }).then((res)=>{
     console.log(res);
-    pcoor.innerHTML = 'From: ' + res.pickup_lat + ", " + res.pickup_lon;
-    dcoor.innerHTML = 'To: ' + res.dropoff_lat + ", " + res.dropoff_lon;
+    pcoor.innerHTML = 'From: ' + res.pickup;
+    dcoor.innerHTML = 'To: ' + res.dropoff;
     passengers.innerHTML = res.passenger_count;
     distance.innerHTML = res.distance;
     total.innerHTML = res.total;
@@ -462,7 +464,7 @@ map.on('click', 'trips', async (e) => {
   // map.setLayoutProperty('clusters-')
 
 
-
+  reset.classList.remove("d-none")
 
 
   // const popup = new mapboxgl.Popup({ offset: [0, -15] })
