@@ -54,15 +54,20 @@ def stats():
     x2 = months_str                 # months
     y2 = [n[1] for n in sql_data]
 
-    sql_data = stat.total_fare_yr()
+    sql_data = stat.total_fare_myr()
     # x3 = [n[0] for n in sql_data]
     # stack = [n[1] for n in sql_data]
     y3 = [n[2] for n in sql_data]
 
+    sql_data = stat.total_pass_yr()
+    # x4 = [n[0] for n in sql_data]
+    y4 = [n[1] for n in sql_data]
+
     return render_template('stats.html', 
         years = x1, avg_d_yr = y1,
         months = x2, avg_d_m = y2,
-        fare_stack = months_str, total_fare_myr = y3)
+        fare_stack = months_str, total_fare_myr = y3,
+        total_pass_yr = y4)
 
 @app.route("/get_year", methods=['GET','POST'])
 def data():
