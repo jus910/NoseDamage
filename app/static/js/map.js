@@ -1,14 +1,31 @@
+var years = ["2010", "2011", "2012", "2013", "2014"]
+var filters = ["pickup", "dropoff"]
+let markersOnScreen = {};
+let markers = {};
+
 const colors = ['#00ff00', '#ff0000'];
-var slider = document.getElementById("slider");
-var sliderText = document.getElementById("sliderText");
 var pickup = document.getElementById("customSwitch1");
 var dropoff = document.getElementById("customSwitch2");
+var list = document.getElementById('informaticonica');
+var passengers = document.getElementById('passenger_in');
+var distance = document.getElementById('distance_in');
+var total = document.getElementById('cost_in');
+var date = document.getElementById('date_in');
+var pcoor = document.getElementById('start');
+var dcoor = document.getElementById('end');
 var reset = document.getElementById("reset"); //reset button
+var sloth = document.getElementById("sloth");
 var select = document.getElementById("select"); // select button to apply filters, filters variables listed below 
+
+var ten = document.getElementById("2010");
+var eleven = document.getElementById("2011");
+var twelve = document.getElementById("2012");
+var thirteen = document.getElementById("2013");
+var fourteen = document.getElementById("2014"); //years for filter
+
 var pickupValue = pickup.checked
 var dropoffValue = dropoff.checked
 var frame;
-sliderText.innerHTML = slider.value;
 
 pickup.onclick = () =>{
   pickupValue = pickup.checked
@@ -18,12 +35,12 @@ pickup.onclick = () =>{
   dropoffValue = dropoff.checked
   console.log(dropoffValue)
 }
-slider.oninput = () =>{
-  sliderText.innerText = slider.value
-}
-
 reset.addEventListener("click", ()=>{
   cancelAnimationFrame(frame);
+  list.style.opacity = '0';
+  pcoor.style.opacity = '0';
+  dcoor.style.opacity = '0';
+  sloth.style.opacity = '0.5';
   map.setLayoutProperty(
     'route',
     'visibility', 
@@ -41,16 +58,17 @@ reset.addEventListener("click", ()=>{
   )
 })
 
-select.addEventListener("click", ()=>{
-  //APPLY FILTERS
-})
 
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v11',
   center: [-74.0060, 40.7128],
   zoom: 10,
-  accessToken: "pk.eyJ1IjoicnlhbmxhdSIsImEiOiJjbGNkaTl6MjAxN2VxM3BwNHpseXYxN3BtIn0.NSi2H99_zl3PfrdhjGp6AA"
+  accessToken: "pk.eyJ1IjoicnlhbmxhdSIsImEiOiJjbGNkaTl6MjAxN2VxM3BwNHpseXYxN3BtIn0.NSi2H99_zl3PfrdhjGp6AA",
+  maxBounds: [
+    [-74.0060 - 0.4, 40.7128 - 0.4],
+    [-74.0060 + 0.4, 40.7128 + 0.4],
+  ]
 });
 
 
@@ -78,7 +96,7 @@ let step = 0;
   ];
 
 function animateDashArray(timestamp) {
-  console.log("animating");
+  // console.log("animating");
   // Update line-dasharray using the next value in dashArraySequence. The
   // divisor in the expression `timestamp / 50` controls the animation speed.
   const newStep = parseInt(
@@ -112,6 +130,16 @@ map.on('load', () => {
       // prefix notation: like skeme
       'pickup': ['+', ['case', ["==", "pickup", ['get', 'point_type']], 1, 0]],
       'dropoff': ['+', ['case', ["==", "dropoff", ['get', 'point_type']], 1, 0]],
+      '2010pickup':['+', ['case', ["all", ["==", "pickup", ['get', 'point_type']], ["==", "2010", ["get", "year"]]], 1, 0]],
+      '2011pickup':['+', ['case', ["all", ["==", "pickup", ['get', 'point_type']], ["==", "2011", ["get", "year"]]], 1, 0]],
+      '2012pickup':['+', ['case', ["all", ["==", "pickup", ['get', 'point_type']], ["==", "2012", ["get", "year"]]], 1, 0]],
+      '2013pickup':['+', ['case', ["all", ["==", "pickup", ['get', 'point_type']], ["==", "2013", ["get", "year"]]], 1, 0]],
+      '2014pickup':['+', ['case', ["all", ["==", "pickup", ['get', 'point_type']], ["==", "2014", ["get", "year"]]], 1, 0]],
+      '2010dropoff':['+', ['case', ["all", ["==", "dropoff", ['get', 'point_type']], ["==", "2010", ["get", "year"]]], 1, 0]],
+      '2011dropoff':['+', ['case', ["all", ["==", "dropoff", ['get', 'point_type']], ["==", "2011", ["get", "year"]]], 1, 0]],
+      '2012dropoff':['+', ['case', ["all", ["==", "dropoff", ['get', 'point_type']], ["==", "2012", ["get", "year"]]], 1, 0]],
+      '2013dropoff':['+', ['case', ["all", ["==", "dropoff", ['get', 'point_type']], ["==", "2013", ["get", "year"]]], 1, 0]],
+      '2014dropoff':['+', ['case', ["all", ["==", "dropoff", ['get', 'point_type']], ["==", "2014", ["get", "year"]]], 1, 0]],
     }
   })
 +
@@ -212,8 +240,6 @@ map.on('load', () => {
 
   // src: https://docs.mapbox.com/mapbox-gl-js/example/cluster-html/
   // objects for caching and keeping track of HTML marker objects (for performance)
-  const markers = {};
-  let markersOnScreen = {};
 
   function updateMarkers() {
     const newMarkers = {};
@@ -254,12 +280,36 @@ map.on('load', () => {
 
 // code for creating an SVG donut chart from feature properties
 function createDonutChart(props) {
+  console.log(props);
   const offsets = [];
+  
+
+  var pickupCount = 0;
+  var dropoffCount = 0;
+
+  console.log(filters);
+  if (filters.includes("pickup")) {
+    for (year of years) {
+      pickupCount += parseInt(props[`${year}pickup`])
+    }
+  }
+
+
+  if (filters.includes("dropoff")) {
+    for (year of years) {
+      dropoffCount += parseInt(props[`${year}dropoff`])
+      }
+  }
+  console.log(pickupCount);
+  console.log(dropoffCount);
+
+
   const counts = [
-    props.dropoff,
-    props.pickup,
+    dropoffCount,
+    pickupCount,
   ];
   let total = 0;
+
   for (const count of counts) {
     offsets.push(total);
     total += count;
@@ -314,6 +364,27 @@ function donutSegment(start, end, r, r0, color) {
 }
 
 
+var get_info = (a)=>{
+  fetch('/info/' + a)
+    .then((response)=>{
+    return response.json()
+  }).then((res)=>{
+    console.log(res);
+    pcoor.innerHTML = 'From: ' + res.pickup_lat + ", " + res.pickup_lon;
+    dcoor.innerHTML = 'To: ' + res.dropoff_lat + ", " + res.dropoff_lon;
+    passengers.innerHTML = res.passenger_count;
+    distance.innerHTML = res.distance;
+    total.innerHTML = res.total;
+    date.innerHTML = res.pickup_time.split(" ")[0];
+    // list.append(passengers,distance,total);
+    sloth.style.opacity = '0';
+    list.style.opacity = '1';
+    pcoor.style.opacity = '1';
+    dcoor.style.opacity = '1';
+  }).catch((error)=>{
+    console.log(error);
+  });
+}
 
 // Popups -- Will change to display route instead of popup box
 map.on('click', 'trips', async (e) => {
@@ -325,10 +396,9 @@ map.on('click', 'trips', async (e) => {
   // }
   const feature = e.features[0];
   const properties = feature.properties
-
   var start;
   var end;
-
+  get_info(properties.id);
   if (properties.point_type == "pickup") {
     start = feature.geometry.coordinates.join(",");
     end = properties.to;
@@ -380,27 +450,85 @@ map.on('click', 'trips', async (e) => {
 
 
 
-  const popup = new mapboxgl.Popup({ offset: [0, -15] })
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML(
-      `<p>${JSON.stringify(properties)}</p>`
-    )
-    .addTo(map);
+  // const popup = new mapboxgl.Popup({ offset: [0, -15] })
+  //   .setLngLat(feature.geometry.coordinates)
+  //   .setHTML(
+  //     `<p>${JSON.stringify(properties)}</p>`
+  //   )
+  //   .addTo(map);
 });
 
-offButton = document.getElementById("toggleOff");
-offButton.addEventListener("click", () => {
-    map.setLayoutProperty(
-      'trips',
-      'visibility', 
-      'none'
-    )
-});
-onButton = document.getElementById("toggleOn");
-onButton.addEventListener("click", () => {
-  map.setLayoutProperty(
+// offButton = document.getElementById("toggleOff");
+// offButton.addEventListener("click", () => {
+//     map.setLayoutProperty(
+//       'trips',
+//       'visibility', 
+//       'none'
+//     )
+// });
+// onButton = document.getElementById("toggleOn");
+// onButton.addEventListener("click", () => {
+//   map.setLayoutProperty(
+//     'trips',
+//     'visibility', 
+//     'visible'
+//   )
+// });
+
+var toggle = document.getElementById("toggle");
+toggle.addEventListener("click", () => {
+  if (toggle.checked){map.setLayoutProperty(
     'trips',
     'visibility', 
     'visible'
-  )
+  )}else{map.setLayoutProperty(
+    'trips',
+    'visibility', 
+    'none'
+  )}
 });
+
+const form = document.getElementById("filters");
+
+function setFilters(e) {
+  e.preventDefault();
+  
+
+
+  for (const id in markersOnScreen) {
+    markersOnScreen[id].remove();
+  }
+  for (const id in markers) {
+    markers[id].remove();
+  }
+
+  markersOnScreen = {}
+  markers = {}
+
+  console.log(markers);
+  console.log(markersOnScreen);
+  
+
+  const formData = new FormData(form)
+  console.log(formData.keys());
+
+  years = []
+  filters = []
+
+  for (const filter of formData.keys()) {
+    if (filter == "pickup" || filter == "dropoff") {
+      filters.push(filter)
+    } else {
+      years.push(filter)
+    }
+  }
+
+  map.setFilter("trips", ["all", ["in", "point_type", ...filters], ["in", "year", ...years]])
+}
+
+form.addEventListener("submit", setFilters)
+
+
+
+
+
