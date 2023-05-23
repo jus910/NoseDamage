@@ -95,20 +95,21 @@ def id(data):
         
 
 
-        message = {'status':'200',
-                   'pickup_time': information[0], 
-                   'dropoff_time': information[1], 
-                   'passenger_count': information[2], 
-                   'distance': information[3],
-                    'pickup_lon': information[4],
-                     'pickup_lat': information[5],
-                      'dropoff_lon': information[6],
-                       'dropoff_lat': information[7],
-                        'fare': information[8], 
-                        'tip': information[9], 
-                        'total': information[10],
-                        'pickup': pickup,
-                        'dropoff': dropoff,
+        message = {
+            'status':'200',
+            'pickup_time': information[0], 
+            'dropoff_time': information[1], 
+            'passenger_count': information[2], 
+            'distance': f"{information[3]} mi.",
+            'pickup_lon': information[4],
+            'pickup_lat': information[5],
+            'dropoff_lon': information[6],
+            'dropoff_lat': information[7],
+            'fare': information[8], 
+            'tip': information[9], 
+            'total': f"${information[10]}",
+            'pickup': pickup,
+            'dropoff': dropoff,
         }
         return jsonify(message)
     else:
