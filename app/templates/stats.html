@@ -42,32 +42,34 @@
     SUMMARY
   </h1>
 
-  <div style="padding: 50px;">
-    <h2  class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
+  <div id="by_yr" style="padding: 50px;">
+    <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
       Average Trip Distance by Year
     </h2>
+    <button id="distance_chart_to_m">Monthly</button>
     <canvas id="distance_chart_yr"></canvas>
-    <text id="distance_x1">{{years}}</text>
-    <text id="distance_y1">{{avg_d_yr}}</text>
+    <text hidden id="distance_x1">{{years}}</text>
+    <text hidden id="distance_y1">{{avg_d_yr}}</text>
+  </div>
+
+  <div id="by_m" style="padding: 50px;">
+    <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
+      Average Trip Distance by Month 
+    </h2>
+    <button id="distance_chart_to_yr">Yearly</button>
+    <canvas id="distance_chart_m"></canvas>
+    <text hidden id="distance_x2">{{months}}</text>
+    <text hidden id="distance_y2">{{avg_d_m}}</text>
   </div>
 
   <div style="padding: 50px;">
     <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
-      Average Trip Distance by Month 
-    </h2>
-    <canvas id="distance_chart_m"></canvas>
-    <text id="distance_x2">{{months}}</text>
-    <text id="distance_y2">{{avg_d_m}}</text>
-  </div>
-
-  <div>
-    <h2>
       Total Fare Paid
     </h2>
     <canvas id="total_fare"></canvas>
-    <text id="fare_x">{{years}}</text>
-    <text id="fare_stack">{{fare_stack}}</text>
-    <text id="fare_y">{{total_fare_myr}}</text>
+    <text hidden id="fare_x">{{years}}</text>
+    <text hidden id="fare_stack">{{fare_stack}}</text>
+    <text hidden id="fare_y">{{total_fare_myr}}</text>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
