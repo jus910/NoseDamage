@@ -80,6 +80,21 @@ def id(data):
         information = stat.investigation(data)
         print("YAYA")
         print(information)
+
+        pickup = requests.get(f"https://api.mapbox.com/geocoding/v5/mapbox.places/{information[4]},{information[5]}.json?types=address&access_token={mapbox_token}")
+        dropoff = requests.get(f"https://api.mapbox.com/geocoding/v5/mapbox.places/{information[6]},{information[7]}.json?types=address&access_token={mapbox_token}")
+        print(pickup.text)
+
+        try:
+            pickup = pickup.json().get("features")[0].get("place_name").split(",")[0]
+            dropoff = dropoff.json().get("features")[0].get("place_name").split(",")[0]
+        except:
+            pickup = f"{information[4]}, {information[5]}"
+            dropoff = f"{information[6]}, {information[7]}"
+
+        
+
+
         message = {'status':'200',
                    'pickup_time': information[0], 
                    'dropoff_time': information[1], 
@@ -92,6 +107,8 @@ def id(data):
                         'fare': information[8], 
                         'tip': information[9], 
                         'total': information[10],
+                        'pickup': pickup,
+                        'dropoff': dropoff,
         }
         return jsonify(message)
     else:

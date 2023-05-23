@@ -56,6 +56,7 @@ reset.addEventListener("click", ()=>{
     'visibility', 
     'visible'
   )
+  reset.classList.add("d-none")
 })
 
 
@@ -370,8 +371,8 @@ var get_info = (a)=>{
     return response.json()
   }).then((res)=>{
     console.log(res);
-    pcoor.innerHTML = 'From: ' + res.pickup_lat + ", " + res.pickup_lon;
-    dcoor.innerHTML = 'To: ' + res.dropoff_lat + ", " + res.dropoff_lon;
+    pcoor.innerHTML = 'From: ' + res.pickup;
+    dcoor.innerHTML = 'To: ' + res.dropoff;
     passengers.innerHTML = res.passenger_count;
     distance.innerHTML = res.distance;
     total.innerHTML = res.total;
@@ -447,7 +448,7 @@ map.on('click', 'trips', async (e) => {
   // map.setLayoutProperty('clusters-')
 
 
-
+  reset.classList.remove("d-none")
 
 
   // const popup = new mapboxgl.Popup({ offset: [0, -15] })
