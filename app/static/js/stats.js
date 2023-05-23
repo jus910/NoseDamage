@@ -40,6 +40,48 @@ var sheer = function(hex_code) {
 
 ///////////// GRAPH FUNCTIONS /////////////
 
+// Line Graph
+var create_line = function(canvas_id, x_id, y_id, x_label, y_label, a_label, hex_code="#36a2eb", isfilled=true) {
+  const ctx = document.getElementById(canvas_id);
+  x_values = convertData(x_id);
+  y_values = convertData(y_id);
+  
+  // Create Chart
+  new Chart(ctx, {
+    type: 'line',
+    data: {  
+      labels: x_values,
+      datasets: [{
+        label: a_label,
+        data: y_values,
+        borderColor: hex_code,
+        backgroundColor: sheer(hex_code),
+        fill: isfilled
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: x_label
+          }
+        },
+        y: {
+          grace: "15%",
+          title: {
+            display: true,
+            text: y_label
+          }
+        }
+      },
+    }
+  });
+
+  console.log("Line Graph Created for " + canvas_id + ".");
+
+};
+
 // Bar Graph
 var create_bar = function(canvas_id, x_id, y_id, x_label, y_label, a_label, hex_code="#36a2eb") {
   const ctx = document.getElementById(canvas_id);
@@ -133,12 +175,12 @@ var create_stacked = function(canvas_id, x_id, stack_id, y_id, x_label, y_label,
     }
   });
 
-  console.log("Bar Graph Created for " + canvas_id + ",");
+  console.log("Line Graph Created for " + canvas_id + ",");
 };
 
 
 // // Donut Chart
-// var create_donut = function(canvas_id, x_id, y_id, a_label, hex_code="#36a2eb") {
+// var create_donut = function(canvas_id, x_id, y_id, a_label, hex_code="#36a2eb") {  
 //   const ctx = document.getElementById(canvas_id);
 //   x_values = convertData(x_id);
 //   y_values = convertData(y_id);
@@ -188,12 +230,12 @@ button_to_yr.addEventListener('click', toggle_to_yr);
 
 ///////////// COMMANDS /////////////
 
-create_bar("distance_chart_yr", 
+create_line("avg_distance_yr", 
   "distance_x1", "distance_y1", 
   "Year", "Distance (mi)", 
   "Average Trip Distance", 
   "#36a2eb");
-create_bar("distance_chart_m", 
+create_line("avg_distance_m", 
   "distance_x2", "distance_y2", 
   "Month", "Distance (mi)", 
   "Average Trip Distance", 

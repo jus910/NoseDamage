@@ -41,13 +41,14 @@
   <h1 class="display-1 fonty" style="padding-top: 10vh; color: rgb(247, 231, 160); padding-left:80px;">
     SUMMARY
   </h1>
+  <text style="padding-left:80px; color: rgb(60, 60, 60)">Updated to 2014 Data (Sample of 200,000 trips / yr)</text>
 
   <div id="by_yr" style="padding: 50px;">
     <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
       Average Trip Distance by Year
     </h2>
-    <button id="distance_chart_to_m">Monthly</button>
-    <canvas id="distance_chart_yr"></canvas>
+    <button id="distance_chart_to_m" style="background-color: rgb(209, 201, 232);">Monthly</button>
+    <canvas id="avg_distance_yr"></canvas>
     <text hidden id="distance_x1">{{years}}</text>
     <text hidden id="distance_y1">{{avg_d_yr}}</text>
   </div>
@@ -56,15 +57,15 @@
     <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
       Average Trip Distance by Month 
     </h2>
-    <button id="distance_chart_to_yr">Yearly</button>
-    <canvas id="distance_chart_m"></canvas>
+    <button id="distance_chart_to_yr" style="background-color: rgb(209, 201, 232);">Yearly</button>
+    <canvas id="avg_distance_m"></canvas>
     <text hidden id="distance_x2">{{months}}</text>
     <text hidden id="distance_y2">{{avg_d_m}}</text>
   </div>
 
   <div style="padding: 50px;">
     <h2 class="fontista" style="color: rgb(247, 231, 160); text-align: center;">
-      Total Fare Paid
+      Total Fare Paid (2010 - 2014)
     </h2>
     <canvas id="total_fare"></canvas>
     <text hidden id="fare_x">{{years}}</text>
