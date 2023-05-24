@@ -72,4 +72,5 @@ RL -- 5/22/2023 12:00
 JM -- 5/22/2023 19:00
 --------------------------------------------------------------
   Updated design.pdf & added to droplet
+  Added the stats page, removed browser from component map, and removed accounts/logins from design doc
 ==============================================================
