@@ -9,7 +9,7 @@ try:
 except:
     import db.stats as stat
 
-with open("app/keys/mapbox_directions.txt") as f:
+with open("app/keys/key_mapboxDirections.txt") as f:
     mapbox_token = f.read().strip()
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def map():
 @app.route("/about")
 def about():
     return render_template('about.html')
-    
+
 @app.route("/stats")
 def stats():
     sql_data = stat.avg_distance_yr()
@@ -63,7 +63,7 @@ def stats():
     # x4 = [n[0] for n in sql_data]
     y4 = [n[1] for n in sql_data]
 
-    return render_template('stats.html', 
+    return render_template('stats.html',
         years = x1, avg_d_yr = y1,
         months = x2, avg_d_m = y2,
         fare_stack = months_str, total_fare_myr = y3,
@@ -78,7 +78,7 @@ def data():
         return jsonify(message)
     else:
         return 'yes'
-    
+
 @app.route("/info/<data>", methods=['GET','POST'])
 def id(data):
     if (request.method == 'GET'):
@@ -97,21 +97,21 @@ def id(data):
             pickup = f"{information[4]}, {information[5]}"
             dropoff = f"{information[6]}, {information[7]}"
 
-        
+
 
 
         message = {
             'status':'200',
-            'pickup_time': information[0], 
-            'dropoff_time': information[1], 
-            'passenger_count': information[2], 
+            'pickup_time': information[0],
+            'dropoff_time': information[1],
+            'passenger_count': information[2],
             'distance': f"{information[3]} mi.",
             'pickup_lon': information[4],
             'pickup_lat': information[5],
             'dropoff_lon': information[6],
             'dropoff_lat': information[7],
-            'fare': information[8], 
-            'tip': information[9], 
+            'fare': information[8],
+            'tip': information[9],
             'total': f"${information[10]}",
             'pickup': pickup,
             'dropoff': dropoff,
